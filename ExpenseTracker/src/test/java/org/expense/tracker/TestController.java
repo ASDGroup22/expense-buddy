@@ -35,7 +35,7 @@ public class TestController {
     }
 
     private int testProfiles(Controller controller) {
-        Assert.assertEquals(controller.getProfiles().get(0).getUserName(), "Profile");
+        Assert.assertEquals(controller.getProfiles().get(0).getUserName(), "user1");
         controller.deleteProfile(0);
         Assert.assertEquals(controller.getProfiles().size(),0);
 
@@ -50,7 +50,7 @@ public class TestController {
     }
 
     private void testCategories(Controller controller, int profId) {
-        int salaryCatId = controller.createIncomeCategory(profId, "Investment");
+        int salaryCatId = controller.createCategory(profId, "Investment", false);
         controller.createCategory(profId, "Outings", true);
 
         Assert.assertEquals(controller.getCategories(profId).size(),7);
@@ -64,7 +64,7 @@ public class TestController {
         controller.updateCategory(profId,saleryCat);
         Assert.assertEquals(controller.getIncomeCategories(profId).get(2).getName(),"SalaryNew");
 
-        int tempCat = controller.createIncomeCategory(profId, "temp cat");
+        int tempCat = controller.createCategory(profId, "temp cat", false);
         Assert.assertEquals(controller.getIncomeCategories(profId).size(), 4);
         controller.deleteCategory(profId, controller.getCategories(profId).get(tempCat));
         Assert.assertEquals(controller.getIncomeCategories(profId).size(), 3);

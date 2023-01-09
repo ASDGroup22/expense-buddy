@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class Controller {
-    
+
     private final DataRepository dataRepository =
             DataManagerFactoryProducer.getFactory(getDatabaseProp()).getRepository();
 
     public Controller() {
-        createProfile("Profile",0);
+        createProfile("user1", 0);
     }
 
     // CRUD for profiles
@@ -29,45 +29,45 @@ public class Controller {
         return profileId;
     }
 
-    public List<User> getProfiles(){
+    public List<User> getProfiles() {
         return dataRepository.getProfiles();
     }
 
-    public User getProfile(int profileId){
+    public User getProfile(int profileId) {
         return dataRepository.getProfile(profileId);
     }
 
-    public void updateProfile(User newUser){
+    public void updateProfile(User newUser) {
         dataRepository.updateProfile(newUser);
     }
 
-    public void deleteProfile(int profileId){
+    public void deleteProfile(int profileId) {
         List<Category> categories = new ArrayList<>(dataRepository.getCategories(profileId));
         for (Category category : categories) {
             dataRepository.deleteCategory(profileId, category);
         }
         dataRepository.deleteProfile(profileId);
     }
-    
+
     // CRUD for Transactions 
     public int createTransaction(int profileId, float amount, boolean recurring, String note, Category category,
-                               Date transactionDate, boolean isExpense){
+                                 Date transactionDate, boolean isExpense) {
         return dataRepository.addTransaction(profileId, amount, recurring, note, category, transactionDate, isExpense);
     }
 
-    public List<Transaction> getTransactions(int profileId){
+    public List<Transaction> getTransactions(int profileId) {
         return dataRepository.getTransactions(profileId);
     }
 
-    public List<Transaction> getExpenseTransactions(int profileId){
+    public List<Transaction> getExpenseTransactions(int profileId) {
         return dataRepository.getExpenses(profileId);
     }
 
-    public List<Transaction> getIncomeTransactions(int profileId){
+    public List<Transaction> getIncomeTransactions(int profileId) {
         return dataRepository.getIncomes(profileId);
     }
 
-    public void updateTransaction(int profileId, Transaction transaction){
+    public void updateTransaction(int profileId, Transaction transaction) {
         dataRepository.updateTransaction(profileId, transaction);
     }
 
@@ -78,41 +78,41 @@ public class Controller {
 
     // CRUD for Categories
 
-    public int createIncomeCategory(int profileId, String categoryName){
-        return dataRepository.addCategory(profileId, categoryName, false);
-    }
+//    public int createIncomeCategory(int profileId, String categoryName){
+//        return dataRepository.addCategory(profileId, categoryName, false);
+//    }
 
     public int createCategory(int profileId, String categoryName, boolean isExpenseCategory) {
         return dataRepository.addCategory(profileId, categoryName, isExpenseCategory);
     }
 
-    public List<Category> getCategories(int profileId){
+    public List<Category> getCategories(int profileId) {
         return dataRepository.getCategories(profileId);
     }
 
-    public List<Category> getExpenseCategories(int profileId){
+    public List<Category> getExpenseCategories(int profileId) {
         return dataRepository.getExpenseCategories(profileId);
     }
 
 
-    public List<Category> getIncomeCategories(int profileId){
+    public List<Category> getIncomeCategories(int profileId) {
         return dataRepository.getIncomeCategories(profileId);
     }
 
 
-    public void updateCategory(int profileId, Category category){
+    public void updateCategory(int profileId, Category category) {
         dataRepository.updateCategory(profileId, category);
     }
 
 
-    public void deleteCategory(int profileId, Category category){
+    public void deleteCategory(int profileId, Category category) {
         dataRepository.deleteCategory(profileId, category);
     }
-    
+
     public float getIncomeSummary(int profileId) {
         List<Transaction> incomeTransactions = getIncomeTransactions(profileId);
         float summary = 0;
-        for (Transaction transaction: incomeTransactions) {
+        for (Transaction transaction : incomeTransactions) {
             summary += transaction.getAmount();
         }
         return summary;
@@ -121,12 +121,12 @@ public class Controller {
     public float getExpenseSummary(int profileId) {
         List<Transaction> expenseTransactions = getExpenseTransactions(profileId);
         float summary = 0;
-        for (Transaction transaction: expenseTransactions) {
+        for (Transaction transaction : expenseTransactions) {
             summary += transaction.getAmount();
         }
         return summary;
     }
-    
+
     public float getCategorySummary(int profileId, int cataId) {
         float summary = 0;
         List<Transaction> transactions = getTransactions(profileId);
@@ -137,10 +137,11 @@ public class Controller {
         }
         return summary;
     }
-    
+
     public static String getDatabaseProp() {
         Properties prop = new Properties();
-        String propFileName = System.getProperty("config.file", "config.properties");;
+        String propFileName = System.getProperty("config.file", "config.properties");
+        ;
 
         InputStream inputStream = Controller.class.getClassLoader().getResourceAsStream(propFileName);
 
@@ -154,15 +155,15 @@ public class Controller {
         }
         return "";
     }
-    
+
     private void loadCategoryPresets(int profileId) {
         createCategory(profileId, "Salary", false);
         createCategory(profileId, "Interest", false);
         createCategory(profileId, "Rent", true);
         createCategory(profileId, "Entertainment", true);
-        createCategory(profileId,"Food", true);
+        createCategory(profileId, "Food", true);
     }
-    
+
     public DataRepository getBudgetRepository() {
         return dataRepository;
     }

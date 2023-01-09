@@ -803,9 +803,9 @@ public class MainController implements Initializable{
                 } else if (categoryForm.getFormMode().equalsIgnoreCase("UPDATE")){
 
                     if (isExpense){
-                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, name, true));;
+                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, true));;
                     } else {
-                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, name, false));;
+                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, false));;
                     }
 
                 }

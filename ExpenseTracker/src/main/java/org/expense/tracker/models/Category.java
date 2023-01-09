@@ -3,14 +3,11 @@ public class Category {
 
     int id;
     String name;
-
-    String description;
     boolean isExpenseCategory;
 
-    public Category(int id, String name, String description, boolean isExpenseCategory) {
+    public Category(int id, String name, boolean isExpenseCategory) {
         this.id = id;
         this.name = name;
-        this.description = description;
         this.isExpenseCategory = isExpenseCategory;
     }
 
@@ -24,14 +21,6 @@ public class Category {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public void setName(String name) {

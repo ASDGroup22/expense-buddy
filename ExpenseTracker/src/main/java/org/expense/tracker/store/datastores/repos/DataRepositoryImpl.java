@@ -29,10 +29,10 @@ public class DataRepositoryImpl implements DataRepository {
             String sqlStringCreateTable = "CREATE TABLE IF NOT EXISTS PROFILES (profile_id int primary key , " +
                     "profile_name varchar(200), budget float);" +
                     "CREATE TABLE IF NOT EXISTS TRANSACTIONS (profile_id int, transaction_id int, " +
-                    "category_id int, amount float, recurring boolean, transaction_note varchar(200), transaction_date Date);"
+                    "category_id int, amount float, recurring boolean, transaction_note varchar(200), transaction_date Date, is_expense boolean);"
                     +
                     "CREATE TABLE IF NOT EXISTS CATEGORIES (profile_id int, category_id int, " +
-                    "category_type varchar(200), category_name varchar(200), budget float);";
+                    "is_expense_category boolean,category_name varchar(200));";
             connection.createStatement().executeQuery(sqlStringCreateTable);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class DataRepositoryImpl implements DataRepository {
     @Override
     public int addCategory(int profileId, String categoryName, boolean isExpenseCategory) {
         int id = this.categoryData.query(profileId).size();
-        this.categoryData.save(profileId, new Category(id, categoryName, categoryName, isExpenseCategory));
+        this.categoryData.save(profileId, new Category(id, categoryName, isExpenseCategory));
         return id;
     }
 

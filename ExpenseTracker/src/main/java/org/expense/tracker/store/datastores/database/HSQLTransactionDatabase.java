@@ -34,10 +34,11 @@ public class HSQLTransactionDatabase implements DataManagerDao<Transaction> {
             int categoryId = transaction.getCategory().getId();
             boolean recurring = transaction.isRecurring();
             String transactionNote = transaction.getNote();
+            boolean isExpense = transaction.isExpense();
             Date transactionDate = new java.sql.Date(transaction.getTransactionDate().getTime());
 
             PreparedStatement statement =
-                    connection.prepareStatement("INSERT INTO TRANSACTIONS VALUES(?, ?, ?, ?, ?, ?, ?);");
+                    connection.prepareStatement("INSERT INTO TRANSACTIONS VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
             statement.setInt(1, profileId);
             statement.setInt(2, transactionId);
             statement.setInt(3, categoryId);
@@ -45,6 +46,7 @@ public class HSQLTransactionDatabase implements DataManagerDao<Transaction> {
             statement.setBoolean(5, recurring);
             statement.setString(6, transactionNote);
             statement.setDate(7, transactionDate);
+            statement.setBoolean(8, isExpense);
             statement.executeUpdate();
 
         } catch (Exception e) {
@@ -101,16 +103,14 @@ public class HSQLTransactionDatabase implements DataManagerDao<Transaction> {
 
         while (resultSet.next()) {
 
-            if (resultSet.getString("category_type").equalsIgnoreCase("EXPENSE")) {
+            if (resultSet.getBoolean("is_expense_category")) {
                 Category expense = new Category(resultSet.getInt("category_id"),
-                        resultSet.getString("category_name"),
                         resultSet.getString("category_name"), true);
                 //set budget
                 // resultSet.getFloat("budget"))
                 return expense;
-            } else if (resultSet.getString("category_type").equalsIgnoreCase("INCOME")) {
+            } else if (resultSet.getBoolean("is_expense_category")) {
                 Category income = new Category(resultSet.getInt("category_id"),
-                        resultSet.getString("category_name"),
                         resultSet.getString("category_name"), false);
                 return income;
             }
@@ -128,13 +128,14 @@ public class HSQLTransactionDatabase implements DataManagerDao<Transaction> {
             int categoryId = transaction.getCategory().getId();
             Boolean recurring = transaction.isRecurring();
             String transactionNote = transaction.getNote();
+            Boolean isExpense = transaction.isExpense();
             Date transactionDate = new java.sql.Date(transaction.getTransactionDate().getTime());
 
             PreparedStatement statement =
                     connection.prepareStatement("UPDATE TRANSACTIONS SET category_id = ? , amount = ? , recurring = " +
                             "? , transaction_note = ? , transaction_date = ? WHERE profile_id = ? AND transaction_id " +
-                            "= ?");
-                    connection.prepareStatement("INSERT INTO TRANSACTIONS VALUES(?, ?, ?, ?, ?, ?, ?);");
+                            "= ? AND is_expense = ?");
+                    connection.prepareStatement("INSERT INTO TRANSACTIONS VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
             statement.setInt(1, categoryId);
             statement.setFloat(2, transactionAmount);
             statement.setBoolean(3, recurring);
@@ -142,6 +143,7 @@ public class HSQLTransactionDatabase implements DataManagerDao<Transaction> {
             statement.setDate(5, transactionDate);
             statement.setInt(6, profileId);
             statement.setInt(7, transactionId);
+            statement.setBoolean(7, isExpense);
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
