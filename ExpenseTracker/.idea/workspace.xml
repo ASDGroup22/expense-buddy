@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="52d3745c-fd75-45c1-897d-ac81a63d16f2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/data/testdb.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/testdb.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/testdb.script" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/MainUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/controllers/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/managers/CategoryManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/managers/TransactionManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/managers/UserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/models/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/models/Transaction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/models/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/AbstractDataManagerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/DataManagerFactoryProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/ORMDatastoreFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/SQLDatastoreFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/datastores/DataManagerDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/datastores/DataRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/datastores/database/HSQLCategoryDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/datastores/database/HSQLProfileDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/datastores/database/HSQLTransactionDatabase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/datastores/repos/DataRepositoryImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/store/datastores/repos/InMemoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/CategoryForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/CategoryListView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/CategoryListViewCell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/CategoryViewHeader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/HeadBarView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/HeadLabel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/HomeView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/ProfileForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/ProfileListView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/SettingsView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/TransactionForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/TransactionListView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/TransactionListViewCell.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/components/TransactionViewHeader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-budget.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-categories.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-category.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-edit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-expense.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-home.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-income.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-settings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images/icon-transaction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/inmemory.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/testng.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2JongFC59gkr1O2aY6zXfC3RUZC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/dilhashanazeer/Downloads/MScWork/sem3/ASD/expense-buddy/ExpenseTracker/src/main/resources/org/expense/tracker/images&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/org/expense/tracker/images" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="52d3745c-fd75-45c1-897d-ac81a63d16f2" name="Changes" comment="" />
+      <created>1672753412977</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672753412977</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/expense/tracker/ui/MainController.java</url>
+          <line>193</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
