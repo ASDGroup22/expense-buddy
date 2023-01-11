@@ -2,6 +2,7 @@ package org.expense.tracker.ui.components;
 
 import java.time.LocalDate;
 
+import javafx.scene.control.ListCell;
 import org.expense.tracker.models.Category;
 
 import javafx.collections.ObservableList;
@@ -159,6 +160,17 @@ public class TransactionForm {
         }
         
         category.setItems(incomeCategoryObservableList);
+        category.setCellFactory(listView -> new ListCell<Category>() {
+            @Override
+            protected void updateItem(Category category, boolean empty) {
+                super.updateItem(category, empty);
+                if (category != null) {
+                    setText(category.getName());
+                } else {
+                    setText(null);
+                }
+            }
+        });
 
         if (formMode.equalsIgnoreCase("INSERT")){
             date.setValue(LocalDate.now());

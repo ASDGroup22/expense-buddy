@@ -8,12 +8,16 @@ import javafx.stage.Stage;
 import org.expense.tracker.ui.MainController;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 
 public class MainUI extends Application {
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Start the Java Debug Wire Protocol (JDWP)
+        startJDWP();
         MainController mainController = new MainController();
         scene = new Scene(loadFXML("fxml/main_ui", mainController));
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
@@ -31,6 +35,12 @@ public class MainUI extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    private void startJDWP() throws IOException {
+        int jdwpPort = 5005;
+        InetAddress jdwpAddress = InetAddress.getByName("localhost");
+        ServerSocket jdwpServer = new ServerSocket(jdwpPort, 0, jdwpAddress);
     }
 
 }
