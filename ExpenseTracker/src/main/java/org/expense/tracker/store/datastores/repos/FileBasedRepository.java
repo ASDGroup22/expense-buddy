@@ -297,17 +297,15 @@ public class FileBasedRepository implements DataRepository {
 
             PreparedStatement statement =
                     connection.prepareStatement("UPDATE TRANSACTIONS SET category_id = ? , amount = ? , recurring = " +
-                            "? , transaction_note = ? , transaction_date = ? WHERE profile_id = ? AND transaction_id " +
-                            "= ? AND is_expense = ?");
-            connection.prepareStatement("INSERT INTO TRANSACTIONS VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
+                            "? , transaction_note = ? , transaction_date = ?, is_expense = ? WHERE profile_id = ? AND transaction_id = ?");
             statement.setInt(1, categoryId);
             statement.setFloat(2, transactionAmount);
             statement.setBoolean(3, recurring);
             statement.setString(4, transactionNote);
             statement.setDate(5, transactionDate);
-            statement.setInt(6, profileId);
-            statement.setInt(7, transactionId);
-            statement.setBoolean(7, isExpense);
+            statement.setBoolean(6, isExpense);
+            statement.setInt(7, profileId);
+            statement.setInt(8, transactionId);
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

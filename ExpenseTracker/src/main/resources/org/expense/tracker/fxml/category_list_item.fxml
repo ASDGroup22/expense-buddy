@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="listItem" alignment="CENTER" prefWidth="375.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="listItem" alignment="CENTER" prefWidth="375.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="categoryItemIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="category" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Category" textAlignment="RIGHT">
