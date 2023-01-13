@@ -1,6 +1,7 @@
 package org.expense.tracker.controllers;
 
 import org.expense.tracker.models.Category;
+import org.expense.tracker.models.CategoryBudget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.store.datastores.DataRepository;
@@ -84,6 +85,16 @@ public class Controller {
         dataRepository.deleteTransaction(profileId, transaction);
     }
 
+
+    // CRUD for budget
+
+    public List<CategoryBudget> getCategoryBudgets(int profileId) {
+        return dataRepository.getCategoryBudgets(profileId);
+    }
+
+    public void updateBudget(int profileId, int categoryId, double budget) {
+        dataRepository.updateBudget(profileId, categoryId, budget);
+    }
 
     // CRUD for Categories
 

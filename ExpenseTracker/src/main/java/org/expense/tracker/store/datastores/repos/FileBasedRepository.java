@@ -1,6 +1,7 @@
 package org.expense.tracker.store.datastores.repos;
 
 import org.expense.tracker.models.Category;
+import org.expense.tracker.models.CategoryBudget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.store.datastores.DataRepository;
@@ -206,7 +207,7 @@ public class FileBasedRepository implements DataRepository {
         }
         try {
             String sqlStringInsertCategory =
-                    "INSERT INTO CATEGORIES VALUES(" + profileId + "," + id + "," + isExpenseCategory + ",'" + categoryName + "');";
+                    "INSERT INTO CATEGORIES VALUES(" + profileId + "," + id + "," + isExpenseCategory + ",'" + categoryName + "', 0.0E0);";
             connection.createStatement().executeQuery(sqlStringInsertCategory);
         } catch (Exception e) {
             e.printStackTrace();
@@ -277,6 +278,38 @@ public class FileBasedRepository implements DataRepository {
         }
 
         return objects;
+    }
+
+    @Override
+    public List<CategoryBudget> getCategoryBudgets(int profileId) {
+        List<CategoryBudget> budgetList = new ArrayList<>();
+        try {
+            String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + profileId;
+            ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectProfile);
+
+            while (resultSet.next()) {
+                budgetList.add(new CategoryBudget(resultSet.getInt("category_id"),
+                        new Category(resultSet.getInt("category_id"), resultSet.getString("category_name")
+                        , resultSet.getBoolean("is_expense_category")), resultSet.getDouble("budget")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return budgetList;
+    }
+
+    @Override
+    public void updateBudget(int profileId, int categoryId, double budget) {
+        try {
+
+            String sqlStringUpdateCategory =
+                    "UPDATE CATEGORIES SET budget = " + budget
+                            + " WHERE profile_id = " + profileId + " AND category_id = " +
+                            categoryId;
+            connection.createStatement().executeQuery(sqlStringUpdateCategory);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

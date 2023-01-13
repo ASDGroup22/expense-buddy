@@ -1,37 +1,60 @@
 package org.expense.tracker.managers;
 
-import org.expense.tracker.models.Budget;
+import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Transaction;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BudgetManager {
-    private HashMap<Integer, Budget> budgetMap;
+    private List<CategoryBudget> budgetList;
 
     public BudgetManager() {
-        budgetMap = new HashMap<>();
+        budgetList = new ArrayList<>();
     }
 
-    public void addCategories(Integer profileId) {
-        // TODO
-        // Get categories for given profileId
-        // Create budget and add
+    public List<CategoryBudget> getBudgetList() {
+        return budgetList;
     }
 
-    public void setBudgetForCategory(String category, double amount) {
-        //TODO
+    public void setBudgetList(List<CategoryBudget> budgetList) {
+        this.budgetList = budgetList;
     }
 
-    public double getBudgetForCategory(String category) {
-        //TODO
-        return 0;
+    public void addBudget(CategoryBudget budget) {
+        budgetList.add(budget);
     }
 
-    public void removeCategory(String category) {
-        // TODO
+    public CategoryBudget getBudgetForCategory(int category) {
+        for (CategoryBudget budget : budgetList) {
+            if (budget.getCategoryId() == category) {
+                return budget;
+            }
+        }
+        return null;
     }
 
-    public void getTotalBudget() {
-        //TODO
+    public void updateBudget(int categoryId, double budget) {
+        CategoryBudget categoryBudget = budgetList.get(categoryId);
+        categoryBudget.setBudgetVal(budget);
+        budgetList.set(getBudgetPosition(categoryId), categoryBudget);
+    }
+
+    private int getBudgetPosition(int categoryId) {
+        for (CategoryBudget item : budgetList) {
+            if (item.getCategoryId() == categoryId) {
+                return budgetList.indexOf(item);
+            }
+        }
+        return -1;
+    }
+
+    public double getTotalBudget() {
+        double total = 0;
+        for (CategoryBudget budget : budgetList) {
+            total += budget.getBudgetVal();
+        }
+        return total;
     }
 }
 
