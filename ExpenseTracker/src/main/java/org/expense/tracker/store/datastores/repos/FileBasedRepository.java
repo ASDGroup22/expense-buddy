@@ -237,7 +237,7 @@ public class FileBasedRepository implements DataRepository {
 
             while (resultSet.next()) {
                 expenses.add(new Category(resultSet.getInt("category_id"), resultSet.getString("category_name")
-                        , true));
+                        , isExpenseCategory));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -293,6 +293,22 @@ public class FileBasedRepository implements DataRepository {
             e.printStackTrace();
         }
         return budgetList;
+    }
+
+    @Override
+    public double getCategoryBudget(int userId, int categoryId) {
+        try {
+            String sqlStringSelectProfile = "SELECT budget FROM CATEGORIES WHERE profile_id = " + userId + " AND is_expense_category = true " +
+                    "AND category_id = " + categoryId;
+            ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectProfile);
+
+            while (resultSet.next()) {
+                return resultSet.getDouble("budget");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override

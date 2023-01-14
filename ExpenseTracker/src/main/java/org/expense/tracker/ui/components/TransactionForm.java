@@ -3,6 +3,7 @@ package org.expense.tracker.ui.components;
 import java.time.LocalDate;
 
 import javafx.scene.control.ListCell;
+import javafx.util.StringConverter;
 import org.expense.tracker.models.Category;
 
 import javafx.collections.ObservableList;
@@ -169,6 +170,20 @@ public class TransactionForm {
                 } else {
                     setText(null);
                 }
+            }
+        });
+        category.setConverter(new StringConverter<Category>() {
+            @Override
+            public String toString(Category object) {
+                if (object == null){
+                    return "";
+                }
+                return object.getName();
+            }
+
+            @Override
+            public Category fromString(String string) {
+                return null;
             }
         });
 

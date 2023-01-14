@@ -25,6 +25,9 @@ public class User {
 
     // Represents total budget
     public User() {
+        this.transactionManager = new TransactionManager();
+        this.categoryManager = new CategoryManager();
+        this.budgetManager = new BudgetManager();
     }
 
     public User(int userId, String userName) {

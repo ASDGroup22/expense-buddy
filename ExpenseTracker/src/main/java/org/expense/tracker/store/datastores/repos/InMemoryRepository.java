@@ -55,6 +55,11 @@ public class InMemoryRepository implements DataRepository {
     }
 
     @Override
+    public double getCategoryBudget(int userId, int categoryId) {
+        return userManager.getProfile(userId).getBudgetManager().getBudgetForCategory(categoryId).getBudgetVal();
+    }
+
+    @Override
     public List<Transaction> getExpenses(int userId) {
         List<Transaction> transactionList =
                 userManager.getProfile(userId).getTransactionManager().getTransactionList();

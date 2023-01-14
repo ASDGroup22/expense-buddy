@@ -44,7 +44,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
-public class MainController implements Initializable{
+public class MainController implements Initializable {
 
     @FXML
     BorderPane innerBorder;
@@ -64,7 +64,7 @@ public class MainController implements Initializable{
     @FXML
     ImageView categoryIcon;
 
-    @FXML 
+    @FXML
     ImageView settingsIcon;
 
     @FXML
@@ -145,7 +145,7 @@ public class MainController implements Initializable{
         this.transactionObservableList = FXCollections.observableArrayList();
         this.incomeCategoryObservableList = FXCollections.observableArrayList();
         this.expenseCategoryObservableList = FXCollections.observableArrayList();
-        this.userObservableList =  FXCollections.observableArrayList();
+        this.userObservableList = FXCollections.observableArrayList();
         this.budgetObservableList = FXCollections.observableArrayList();
 
         this.headBarView = new HeadBarView();
@@ -184,7 +184,7 @@ public class MainController implements Initializable{
     }
 
 
-    private void resetObservableLists(){
+    private void resetObservableLists() {
 
         userObservableList = FXCollections.observableArrayList();
 
@@ -193,14 +193,14 @@ public class MainController implements Initializable{
         }
 
         incomeCategoryObservableList = FXCollections.observableArrayList();
-        
+
 
         for (Category category : controller.getIncomeCategories(selectedProfileId)) {
             incomeCategoryObservableList.add(category);
         }
 
         expenseCategoryObservableList = FXCollections.observableArrayList();
-        
+
         for (Category category : controller.getExpenseCategories(selectedProfileId)) {
             expenseCategoryObservableList.add(category);
         }
@@ -219,24 +219,24 @@ public class MainController implements Initializable{
 
     }
 
-    private void resetView(){
+    private void resetView() {
 
-        if (selectedTab.equalsIgnoreCase("home")){
+        if (selectedTab.equalsIgnoreCase("home")) {
             homeTabClicked();
-        } else if (selectedTab.equalsIgnoreCase("transaction")){
+        } else if (selectedTab.equalsIgnoreCase("transaction")) {
             transactionTabClicked();
-        } else if (selectedTab.equalsIgnoreCase("budget")){
+        } else if (selectedTab.equalsIgnoreCase("budget")) {
             budgetTabClicked();
-        } else if (selectedTab.equalsIgnoreCase("category")){
+        } else if (selectedTab.equalsIgnoreCase("category")) {
             categoryTabClicked();
-        } else if (selectedTab.equalsIgnoreCase("settings")){
+        } else if (selectedTab.equalsIgnoreCase("settings")) {
             settingsTabClicked();
         }
     }
 
 // Head Bar View
 
-    public void setHeadBarView(){
+    public void setHeadBarView() {
 
         resetObservableLists();
 
@@ -251,7 +251,7 @@ public class MainController implements Initializable{
 
 // Main View tabs
 
-    public void homeTabClicked(){
+    public void homeTabClicked() {
 
         resetObservableLists();
 
@@ -267,7 +267,7 @@ public class MainController implements Initializable{
             String incomeTotal = Double.toString(incomeSummary);
             String expenseTotal = Double.toString(expenseSummary);
             String balanceTotal = Double.toString(balanceSummary);
-            
+
             homeView.setIncomeCategoryObservableList(incomeCategoryObservableList);
             homeView.setExpenseCategoryObservableList(expenseCategoryObservableList);
             homeView.setBudgetObservableList(budgetObservableList);
@@ -277,7 +277,7 @@ public class MainController implements Initializable{
             homeView.getExpenseTotalLabel().setText(expenseTotal);
             homeView.getBalanceTotalLabel().setText(balanceTotal);
 
-            homeView.setSelectcategoryEventhandler(selectCategoryEventHandler);
+            homeView.setSelectCategoryEventHandler(selectCategoryEventHandler);
 
             homeView.setMainColorOnValue();
 
@@ -286,7 +286,7 @@ public class MainController implements Initializable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         innerBorder.setTop(headLabel.getHeadLabel("Home"));
         innerBorder.setCenter(homeView.getHomeView());
 
@@ -295,7 +295,7 @@ public class MainController implements Initializable{
         selectedTab = "home";
     }
 
-    public void transactionTabClicked(){
+    public void transactionTabClicked() {
 
         resetObservableLists();
 
@@ -305,7 +305,7 @@ public class MainController implements Initializable{
         transactionListView.setTransactionItemClickHandler(transactionItemClickHandler);
 
         transactionViewHeader = new TransactionViewHeader("Transactions", Float.toString(controller.getIncomeSummary(selectedProfileId)),
-                                            Float.toString(controller.getExpenseSummary(selectedProfileId)));
+                Float.toString(controller.getExpenseSummary(selectedProfileId)));
 
         transactionViewHeader.setAddTransactionItemClickHandler(addTransactionItemClickHandler);
 
@@ -317,7 +317,7 @@ public class MainController implements Initializable{
         selectedTab = "transaction";
     }
 
-    public void budgetTabClicked(){
+    public void budgetTabClicked() {
 
         resetObservableLists();
 
@@ -336,7 +336,7 @@ public class MainController implements Initializable{
         selectedTab = "budget";
     }
 
-    public void categoryTabClicked(){
+    public void categoryTabClicked() {
 
         resetObservableLists();
 
@@ -359,7 +359,7 @@ public class MainController implements Initializable{
         selectedTab = "category";
     }
 
-    public void settingsTabClicked(){
+    public void settingsTabClicked() {
 
         settingsView = new SettingsView();
 
@@ -374,7 +374,7 @@ public class MainController implements Initializable{
 
 // Set scenes
 
-    public void setProfileListView(){
+    public void setProfileListView() {
         resetObservableLists();
         profileListView = new ProfileListView();
         profileListView.setProfileObservableList(userObservableList);
@@ -382,7 +382,7 @@ public class MainController implements Initializable{
         innerBorder.setCenter(profileListView.getProfileListView());
     }
 
-    public void setProfileFormView(){
+    public void setProfileFormView() {
         resetObservableLists();
         profileForm = new ProfileForm();
         profileForm.setActionButtonClickHandler(profileActionButtonClickHandler);
@@ -390,7 +390,7 @@ public class MainController implements Initializable{
         profileForm.setCancelButtonClickHandler(profileCancelButtonClickHandler);
     }
 
-    public void setTransactionFormView(){
+    public void setTransactionFormView() {
         resetObservableLists();
         transactionForm = new TransactionForm();
         transactionForm.setIncomeCategoryObservableList(incomeCategoryObservableList);
@@ -400,14 +400,14 @@ public class MainController implements Initializable{
         transactionForm.setCancelButtonClickHandler(transactionCancelButtonClickHandler);
     }
 
-    public void setBudgetFormView(){
+    public void setBudgetFormView() {
         resetObservableLists();
         budgetForm = new BudgetForm();
         budgetForm.setActionButtonClickHandler(budgetActionButtonClickHandler);
         budgetForm.setCancelButtonClickHandler(budgetCancelButtonClickHandler);
     }
 
-    public void setCategoryFormView(){
+    public void setCategoryFormView() {
         categoryForm = new CategoryForm();
         categoryForm.setActionButtonClickHandler(categoryActionButtonClickHandler);
         categoryForm.setDeleteButtonClickHandler(categoryDeleteButtonClickHandler);
@@ -427,8 +427,9 @@ public class MainController implements Initializable{
             selectedProfileId = profileId;
 
             resetView();
-            
-        }};
+
+        }
+    };
 
 // Action Handlers - Profile
 
@@ -436,13 +437,13 @@ public class MainController implements Initializable{
 
         @Override
         public void handle(MouseEvent event) {
-            
+
             setProfileFormView();
             profileForm.setFormMode("INSERT");
-            
-            innerBorder.setCenter(profileForm.getProfileForm()); 
+
+            innerBorder.setCenter(profileForm.getProfileForm());
             innerBorder.setTop(headLabel.getHeadLabel("Add Profile"));
-            
+
         }
     };
 
@@ -450,21 +451,21 @@ public class MainController implements Initializable{
 
         @Override
         public void handle(MouseEvent event) {
-            
+
             try {
                 int profileId = profileForm.getId();
                 String profileName = profileForm.getName().getText();
 
-                if (profileForm.getFormMode().equalsIgnoreCase("INSERT")){
+                if (profileForm.getFormMode().equalsIgnoreCase("INSERT")) {
 
                     controller.createUser(profileName);
 
                     resetView();
 
-                } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")){
+                } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")) {
 
                     User user = new User(profileId, profileName);
-                    
+
                     controller.updateUser(user);
 
                     setProfileListView();
@@ -472,34 +473,35 @@ public class MainController implements Initializable{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
     EventHandler<MouseEvent> profileDeleteButtonClickHandler = new EventHandler<MouseEvent>() {
 
         @Override
         public void handle(MouseEvent arg0) {
-         
+
             try {
 
                 int profileId = profileForm.getId();
 
-                if (profileForm.getFormMode().equalsIgnoreCase("INSERT")){
+                if (profileForm.getFormMode().equalsIgnoreCase("INSERT")) {
 
-                } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")){
+                } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")) {
 
-                    controller.deleteUser(profileId);;
+                    controller.deleteUser(profileId);
+                    ;
 
                     setProfileListView();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
     EventHandler<MouseEvent> profileCancelButtonClickHandler = new EventHandler<MouseEvent>() {
@@ -508,21 +510,21 @@ public class MainController implements Initializable{
         public void handle(MouseEvent arg0) {
 
             try {
-                if (profileForm.getFormMode().equalsIgnoreCase("INSERT")){
-                    
+                if (profileForm.getFormMode().equalsIgnoreCase("INSERT")) {
+
                     resetView();
 
-                } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")){
+                } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")) {
 
                     innerBorder.setCenter(profileListView.getProfileListView());
                 }
-                
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
     EventHandler<MouseEvent> manageProfileButtonClickHandler = new EventHandler<MouseEvent>() {
@@ -550,15 +552,15 @@ public class MainController implements Initializable{
 
                 int profileId = profileListView.getProfileListView().getSelectionModel().getSelectedItem().getUserId();
                 String name = profileListView.getProfileListView().getSelectionModel().getSelectedItem().getUserName();
-                
+
                 profileForm.setId(profileId);
                 profileForm.getName().setText(name);
 
-                innerBorder.setCenter(profileForm.getProfileForm()); 
+                innerBorder.setCenter(profileForm.getProfileForm());
                 innerBorder.setTop(headLabel.getHeadLabel("Update Profile"));
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -574,30 +576,31 @@ public class MainController implements Initializable{
         public void handle(ActionEvent arg0) {
 
             Category category = homeView.getSelectCategoryComboBox().getSelectionModel().getSelectedItem();
-
             try {
 
-                Float categorySummary = controller.getCategorySummary(selectedProfileId, category.getId());
+                Double categorySummary = controller.getCategorySummary(selectedProfileId, category.getId());
 
-                String catSummary = Float.toString(categorySummary);
+                String catSummary = Double.toString(categorySummary);
 
-                if(!category.isExpenseCategory()){
+                if (!category.isExpenseCategory()) {
 
                     homeView.getEarningLabel().setText(catSummary);
-                    
-                } else if(category.isExpenseCategory()){
 
-                    homeView.getBudgetLabel().setText("0.00");
+                } else if (category.isExpenseCategory()) {
+
+                    double budget = controller.getCategoryBudget(selectedProfileId, category.getId());
+                    homeView.getBudgetLabel().setText(String.valueOf(budget));
                     homeView.getExpenseLabel().setText(catSummary);
-                    homeView.getBalanceLabel().setText("0.00");
+                    homeView.getBalanceLabel().setText(String.valueOf(budget-categorySummary));
                     homeView.setSubColorOnValue();
-                }    
+                }
             } catch (Exception e) {
 
             }
-                    
-            
-        }};
+
+
+        }
+    };
 
 // Action Handlers - Transaction
 
@@ -608,7 +611,7 @@ public class MainController implements Initializable{
             setTransactionFormView();
             transactionForm.setFormMode("INSERT");
 
-            innerBorder.setCenter(transactionForm.getTransactionForm(true)); 
+            innerBorder.setCenter(transactionForm.getTransactionForm(true));
             innerBorder.setTop(headLabel.getHeadLabel("Add transaction"));
 
         }
@@ -631,20 +634,20 @@ public class MainController implements Initializable{
                 Boolean recurring = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().isRecurring();
                 String date = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getTransactionDate().toString();
                 Date date1 = dateFormatter.parse(date);
-                
+
                 transactionForm.setId(transactionId);
                 transactionForm.getAmount().setText(amount);
                 transactionForm.getCategory().getSelectionModel().select(category);
                 transactionForm.getNote().setText(note);
                 transactionForm.getDate().setValue(date1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
-                if(recurring){
+                if (recurring) {
                     transactionForm.getRecurring().fire();
                 }
                 innerBorder.setCenter(transactionForm.getTransactionForm(!category.isExpenseCategory()));
                 innerBorder.setTop(headLabel.getHeadLabel("Update transaction"));
-            } catch (NullPointerException e){
-                
+            } catch (NullPointerException e) {
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -656,7 +659,7 @@ public class MainController implements Initializable{
 
         @Override
         public void handle(MouseEvent arg0) {
-            
+
             try {
 
                 int transactionId = transactionForm.getId();
@@ -667,10 +670,10 @@ public class MainController implements Initializable{
                 Date date = dateFormatter.parse(transactionForm.getDate().getValue().toString());
                 boolean isExpense = transactionForm.getExpenseOption().isSelected();
 
-                if (transactionForm.getFormMode().equalsIgnoreCase("INSERT")){
-                    controller.createTransaction(selectedProfileId, amount, recurring, note, category,  date, isExpense);
+                if (transactionForm.getFormMode().equalsIgnoreCase("INSERT")) {
+                    controller.createTransaction(selectedProfileId, amount, recurring, note, category, date, isExpense);
 
-                } else if (transactionForm.getFormMode().equalsIgnoreCase("UPDATE")){
+                } else if (transactionForm.getFormMode().equalsIgnoreCase("UPDATE")) {
                     Transaction transaction = new Transaction(transactionId, amount, recurring, note, category, date, isExpense);
                     controller.updateTransaction(selectedProfileId, transaction);
                 }
@@ -684,24 +687,24 @@ public class MainController implements Initializable{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
     EventHandler<MouseEvent> transactionDeleteButtonClickHandler = new EventHandler<MouseEvent>() {
 
         @Override
         public void handle(MouseEvent arg0) {
-            
+
             try {
 
                 int transactionId = transactionForm.getId();
 
 
-                if (transactionForm.getFormMode().equalsIgnoreCase("INSERT")){
-                    
-                } else if (transactionForm.getFormMode().equalsIgnoreCase("UPDATE")){
+                if (transactionForm.getFormMode().equalsIgnoreCase("INSERT")) {
+
+                } else if (transactionForm.getFormMode().equalsIgnoreCase("UPDATE")) {
 
                     Transaction transaction = new Transaction();
                     transaction.setTransactionId(transactionId);
@@ -713,9 +716,9 @@ public class MainController implements Initializable{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
     EventHandler<MouseEvent> transactionCancelButtonClickHandler = new EventHandler<MouseEvent>() {
@@ -728,9 +731,9 @@ public class MainController implements Initializable{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
 // Action Handlers - Budget
@@ -753,7 +756,7 @@ public class MainController implements Initializable{
 
                 innerBorder.setTop(headLabel.getHeadLabel("Update Budget"));
                 innerBorder.setCenter(budgetForm.getBudgetForm());
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -810,8 +813,8 @@ public class MainController implements Initializable{
 
             setCategoryFormView();
             categoryForm.setFormMode("INSERT");
-            
-            innerBorder.setCenter(categoryForm.getCategoryForm(true)); 
+
+            innerBorder.setCenter(categoryForm.getCategoryForm(true));
             innerBorder.setTop(headLabel.getHeadLabel("Add category"));
 
         }
@@ -825,7 +828,7 @@ public class MainController implements Initializable{
 
                 Category category = categoryListView.getCategoryListView().getSelectionModel().getSelectedItem();
 
-                if (category.equals(null)){
+                if (category.equals(null)) {
 
                 } else {
                     setCategoryFormView();
@@ -842,12 +845,12 @@ public class MainController implements Initializable{
                     innerBorder.setCenter(categoryForm.getCategoryForm(!category.isExpenseCategory()));
                     innerBorder.setTop(headLabel.getHeadLabel("Update Category"));
                 }
-            } catch (NullPointerException e){
-                
+            } catch (NullPointerException e) {
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-    
+
 
         }
     };
@@ -867,7 +870,7 @@ public class MainController implements Initializable{
     EventHandler<MouseEvent> expenseToggleButtonClickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-           
+
             categoryListView.setCategoryObservableList(expenseCategoryObservableList);
             innerBorder.setCenter(categoryListView.getCategoryListView());
 
@@ -888,28 +891,30 @@ public class MainController implements Initializable{
                 String budgetString = categoryForm.getBudget().getText();
                 Float budget = Float.valueOf(0);
 
-                if (budgetString.isEmpty()){
+                if (budgetString.isEmpty()) {
 
                 } else {
                     budget = Float.parseFloat(budgetString);
                 }
-                
+
                 Boolean isExpense = categoryForm.getBudget().isVisible();
 
-                if (categoryForm.getFormMode().equalsIgnoreCase("INSERT")){
+                if (categoryForm.getFormMode().equalsIgnoreCase("INSERT")) {
 
-                    if (isExpense){
+                    if (isExpense) {
                         controller.createCategory(selectedProfileId, name, true);
                     } else {
                         controller.createCategory(selectedProfileId, name, false);
                     }
 
-                } else if (categoryForm.getFormMode().equalsIgnoreCase("UPDATE")){
+                } else if (categoryForm.getFormMode().equalsIgnoreCase("UPDATE")) {
 
-                    if (isExpense){
-                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, true));;
+                    if (isExpense) {
+                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, true));
+                        ;
                     } else {
-                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, false));;
+                        controller.updateCategory(selectedProfileId, new Category(categoryId, name, false));
+                        ;
                     }
 
                 }
@@ -919,9 +924,9 @@ public class MainController implements Initializable{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
     EventHandler<MouseEvent> categoryDeleteButtonClickHandler = new EventHandler<MouseEvent>() {
@@ -933,9 +938,9 @@ public class MainController implements Initializable{
 
             try {
 
-                if (categoryForm.getFormMode().equalsIgnoreCase("INSERT")){
+                if (categoryForm.getFormMode().equalsIgnoreCase("INSERT")) {
 
-                } else if (categoryForm.getFormMode().equalsIgnoreCase("UPDATE")){
+                } else if (categoryForm.getFormMode().equalsIgnoreCase("UPDATE")) {
                     controller.deleteCategory(selectedProfileId, category);
                 }
                 categoryTabClicked();
@@ -955,10 +960,10 @@ public class MainController implements Initializable{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     };
 
-    
+
 }

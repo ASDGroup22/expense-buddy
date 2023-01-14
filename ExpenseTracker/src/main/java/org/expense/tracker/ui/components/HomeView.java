@@ -1,5 +1,7 @@
 package org.expense.tracker.ui.components;
 
+import javafx.scene.control.ListCell;
+import javafx.util.StringConverter;
 import org.expense.tracker.models.Category;
 
 import javafx.collections.ObservableList;
@@ -191,7 +193,32 @@ public class HomeView {
     public GridPane getHomeView(){
 
         incomeOption.fire();
-        selectCategoryComboBox.setItems(incomeCategoryObservableList);
+        selectCategoryComboBox.setCellFactory(lv -> new ListCell<Category>() {
+            @Override
+            protected void updateItem(Category category, boolean empty) {
+                super.updateItem(category, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(category.getName());
+                }
+            }
+        });
+        selectCategoryComboBox.setConverter(new StringConverter<Category>() {
+            @Override
+            public String toString(Category object) {
+                if (object == null){
+                    return "";
+                }
+                return object.getName();
+            }
+
+            @Override
+            public Category fromString(String string) {
+                return null;
+            }
+        });
+
         selectCategoryComboBox.setOnAction(selectcategoryEventhandler);
 
         return gridPane;
@@ -341,7 +368,7 @@ public class HomeView {
         return selectcategoryEventhandler;
     }
 
-    public void setSelectcategoryEventhandler(EventHandler<ActionEvent> selectcategoryEventhandler) {
+    public void setSelectCategoryEventHandler(EventHandler<ActionEvent> selectcategoryEventhandler) {
         this.selectcategoryEventhandler = selectcategoryEventhandler;
     }
 

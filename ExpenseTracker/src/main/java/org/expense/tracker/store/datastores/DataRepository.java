@@ -19,6 +19,7 @@ public interface DataRepository {
                        Date transactionDate, boolean isExpense);
     List<Transaction> getTransactions(int userId);
     List<Budget> getCategoryBudgets(int userId);
+    double getCategoryBudget(int userId, int categoryId);
     List<Transaction> getExpenses(int userId);
     List<Transaction> getIncomes(int userId);
     void updateTransaction(int userId, Transaction transaction);

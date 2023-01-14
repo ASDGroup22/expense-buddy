@@ -92,6 +92,10 @@ public class Controller {
         return dataRepository.getCategoryBudgets(profileId);
     }
 
+    public double getCategoryBudget(int profileId, int categoryId) {
+        return dataRepository.getCategoryBudget(profileId, categoryId);
+    }
+
     public void updateBudget(int profileId, int categoryId, double budget) {
         dataRepository.updateBudget(profileId, categoryId, budget);
     }
@@ -152,7 +156,7 @@ public class Controller {
         return summary;
     }
 
-    public float getCategorySummary(int profileId, int cataId) {
+    public double getCategorySummary(int profileId, int cataId) {
         float summary = 0;
         List<Transaction> transactions = getTransactions(profileId);
         for (Transaction transaction : transactions) {
