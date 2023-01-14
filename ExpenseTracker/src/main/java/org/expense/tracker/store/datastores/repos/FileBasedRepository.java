@@ -318,7 +318,7 @@ public class FileBasedRepository implements DataRepository {
     public void updateTransaction(int profileId, Transaction transaction) {
         try {
             int transactionId = transaction.getTransactionId();
-            float transactionAmount = transaction.getAmount();
+            double transactionAmount = transaction.getAmount();
             int categoryId = transaction.getCategory().getId();
             Boolean recurring = transaction.isRecurring();
             String transactionNote = transaction.getNote();
@@ -329,7 +329,7 @@ public class FileBasedRepository implements DataRepository {
                     connection.prepareStatement("UPDATE TRANSACTIONS SET category_id = ? , amount = ? , recurring = " +
                             "? , transaction_note = ? , transaction_date = ?, is_expense = ? WHERE profile_id = ? AND transaction_id = ?");
             statement.setInt(1, categoryId);
-            statement.setFloat(2, transactionAmount);
+            statement.setDouble(2, transactionAmount);
             statement.setBoolean(3, recurring);
             statement.setString(4, transactionNote);
             statement.setDate(5, transactionDate);

@@ -38,7 +38,7 @@ public class TestController {
         controller.createProfile("user01");
         Assert.assertEquals(controller.getProfiles().get(0).getUserName(), "user01");
         controller.deleteProfile(0);
-        Assert.assertEquals(controller.getProfiles().size(),0);
+        Assert.assertEquals(controller.getProfiles().size(), 0);
 
         int profId = controller.createProfile("user02");
         User userDb = controller.getProfiles().get(profId);
@@ -53,16 +53,16 @@ public class TestController {
         int categoryId = controller.createCategory(userId, "Investment", false);
         controller.createCategory(userId, "Education", true);
 
-        Assert.assertEquals(controller.getCategories(userId).size(),7);
-        Assert.assertEquals(controller.getIncomeCategories(userId).size(),3);
-        Assert.assertEquals(controller.getIncomeCategories(userId).get(2).getName(),"Investment");
-        Assert.assertEquals(controller.getExpenseCategories(userId).size(),4);
-        Assert.assertEquals(controller.getExpenseCategories(userId).get(3).getName(),"Education");
+        Assert.assertEquals(controller.getCategories(userId).size(), 7);
+        Assert.assertEquals(controller.getIncomeCategories(userId).size(), 3);
+        Assert.assertEquals(controller.getIncomeCategories(userId).get(2).getName(), "Investment");
+        Assert.assertEquals(controller.getExpenseCategories(userId).size(), 4);
+        Assert.assertEquals(controller.getExpenseCategories(userId).get(3).getName(), "Education");
 
         Category category = controller.getCategories(userId).get(categoryId);
         category.setName("Dividend");
-        controller.updateCategory(userId,category);
-        Assert.assertEquals(controller.getIncomeCategories(userId).get(2).getName(),"Dividend");
+        controller.updateCategory(userId, category);
+        Assert.assertEquals(controller.getIncomeCategories(userId).get(2).getName(), "Dividend");
 
         int tempCategory = controller.createCategory(userId, "temp category", false);
         Assert.assertEquals(controller.getIncomeCategories(userId).size(), 4);
@@ -71,35 +71,35 @@ public class TestController {
     }
 
     private void testTransactions(Controller controller, int profileId) {
-        int testTrans = controller.createTransaction(profileId, 1000, false, "test trans",
+        int transactionId = controller.createTransaction(profileId, 1000, false, "test transaction",
                 controller.getIncomeCategories(profileId).get(0), new Date(), false);
-        Transaction testTransObj = controller.getTransactions(profileId).get(testTrans);
-        testTransObj.setAmount(1200);
-        controller.updateTransaction(testTrans, testTransObj);
-        Assert.assertEquals(controller.getTransactions(profileId).get(testTrans).getAmount(), 1200f);
+        Transaction testTransaction = controller.getTransactions(profileId).get(transactionId);
+        testTransaction.setAmount(1200);
+        controller.updateTransaction(transactionId, testTransaction);
+        Assert.assertEquals(controller.getTransactions(profileId).get(transactionId).getAmount(), 1200);
 
-        controller.deleteTransaction(profileId, testTransObj);
+        controller.deleteTransaction(profileId, testTransaction);
         Assert.assertEquals(controller.getTransactions(profileId).size(), 0);
 
-        controller.createTransaction(profileId, 1100, false, "first month salary",
+        controller.createTransaction(profileId, 1100, false, "give treat",
                 controller.getIncomeCategories(profileId).get(0), new Date(), false);
 
-        controller.createTransaction(profileId, 100, false, "kingsburry",
+        controller.createTransaction(profileId, 100, false, "buy breakfast",
                 controller.getExpenseCategories(profileId).get(0), new Date(), true);
 
-        Assert.assertEquals(controller.getTransactions(profileId).size(),2);
-        Assert.assertEquals(controller.getIncomeTransactions(profileId).size(),1);
-        Assert.assertEquals(controller.getExpenseTransactions(profileId).size(),1);
+        Assert.assertEquals(controller.getTransactions(profileId).size(), 2);
+        Assert.assertEquals(controller.getIncomeTransactions(profileId).size(), 1);
+        Assert.assertEquals(controller.getExpenseTransactions(profileId).size(), 1);
 
         Assert.assertNotNull(controller.getIncomeTransactions(profileId).get(0).getTransactionDate());
         Transaction transaction = controller.getIncomeTransactions(profileId).get(0);
-        Date newDate = new Date(2022, Calendar.FEBRUARY, 23);
+        Date newDate = new Date(2023, Calendar.JANUARY, 10);
         transaction.setTransactionDate(newDate);
-        controller.updateTransaction(profileId,transaction);
-        Assert.assertEquals(controller.getIncomeTransactions(profileId).get(0).getTransactionDate(),newDate);
+        controller.updateTransaction(profileId, transaction);
+        Assert.assertEquals(controller.getIncomeTransactions(profileId).get(0).getTransactionDate(), newDate);
 
-        Assert.assertEquals(controller.getIncomeTransactions(profileId).get(0).getNote(), "first month salary");
-        Assert.assertEquals(controller.getExpenseTransactions(profileId).get(0).getNote(), "kingsburry");
+        Assert.assertEquals(controller.getIncomeTransactions(profileId).get(0).getNote(), "give treat");
+        Assert.assertEquals(controller.getExpenseTransactions(profileId).get(0).getNote(), "buy breakfast");
 
         Assert.assertEquals(controller.getExpenseSummary(profileId), 100f);
         Assert.assertEquals(controller.getIncomeSummary(profileId), 1100f);

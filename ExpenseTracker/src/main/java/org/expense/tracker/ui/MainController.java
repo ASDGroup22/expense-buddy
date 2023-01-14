@@ -624,7 +624,7 @@ public class MainController implements Initializable{
 
                 // transactionForm.setAmount(event.getPickResult().getClass().);
                 int transactionId = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getTransactionId();
-                String amount = Float.toString(transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getAmount());
+                String amount = Double.toString(transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getAmount());
                 Category category = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getCategory();
                 String note = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getNote();
                 Boolean recurring = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().isRecurring();
