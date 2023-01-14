@@ -35,17 +35,17 @@ public class TestController {
     }
 
     private int testProfiles(Controller controller) {
-        controller.createProfile("user01");
-        Assert.assertEquals(controller.getProfiles().get(0).getUserName(), "user01");
-        controller.deleteProfile(0);
-        Assert.assertEquals(controller.getProfiles().size(), 0);
+        controller.createUser("user01");
+        Assert.assertEquals(controller.getUsers().get(0).getUserName(), "user01");
+        controller.deleteUser(0);
+        Assert.assertEquals(controller.getUsers().size(), 0);
 
-        int profId = controller.createProfile("user02");
-        User userDb = controller.getProfiles().get(profId);
+        int profId = controller.createUser("user02");
+        User userDb = controller.getUsers().get(profId);
         Assert.assertEquals(userDb.getUserName(), "user02");
         userDb.setUserName("user03");
-        controller.updateProfile(userDb);
-        Assert.assertEquals(controller.getProfile(profId).getUserName(), "user03");
+        controller.updateUser(userDb);
+        Assert.assertEquals(controller.getUser(profId).getUserName(), "user03");
         return profId;
     }
 
@@ -73,8 +73,10 @@ public class TestController {
     private void testTransactions(Controller controller, int profileId) {
         int transactionId = controller.createTransaction(profileId, 1000, false, "test transaction",
                 controller.getIncomeCategories(profileId).get(0), new Date(), false);
+
         Transaction testTransaction = controller.getTransactions(profileId).get(transactionId);
         testTransaction.setAmount(1200);
+
         controller.updateTransaction(transactionId, testTransaction);
         Assert.assertEquals(controller.getTransactions(profileId).get(transactionId).getAmount(), 1200);
 

@@ -9,25 +9,25 @@ import java.util.Date;
 import java.util.List;
 
 public interface DataRepository {
-    int addProfile(String profileName);
-    List<User> getProfiles();
-    User getProfile(int profileId);
-    void updateProfile(User user);
-    void deleteProfile(int profileId);
+    int addUser(String userName);
+    List<User> addUsers();
+    User getUser(int userId);
+    void updateUser(User user);
+    void deleteUser(int userId);
     
-    int addTransaction(int profileId, float amount, boolean recurring, String note, Category category,
+    int addTransaction(int userId, float amount, boolean recurring, String note, Category category,
                        Date transactionDate, boolean isExpense);
-    List<Transaction> getTransactions(int profileId);
-    List<Budget> getCategoryBudgets(int profileId);
-    List<Transaction> getExpenses(int profileId);
-    List<Transaction> getIncomes(int profileId);
-    void updateTransaction(int profileId, Transaction transaction);
-    void updateBudget(int profileId, int categoryId, double budget);
-    void deleteTransaction(int profileId, Transaction transaction);
-    int addCategory(int profileId, String categoryName, boolean isExpenseCategory);
-    List<Category> getCategories(int profileId);
-    List<Category> getExpenseCategories(int profileId);
-    List<Category> getIncomeCategories(int profileId);
-    void updateCategory(int profileId, Category category);
-    void deleteCategory(int profileId, Category category);
+    List<Transaction> getTransactions(int userId);
+    List<Budget> getCategoryBudgets(int userId);
+    List<Transaction> getExpenses(int userId);
+    List<Transaction> getIncomes(int userId);
+    void updateTransaction(int userId, Transaction transaction);
+    void updateBudget(int userId, int categoryId, double budget);
+    void deleteTransaction(int userId, Transaction transaction);
+    int addCategory(int userId, String categoryName, boolean isExpenseCategory);
+    List<Category> getCategories(int userId);
+    List<Category> getExpenseCategories(int userId);
+    List<Category> getIncomeCategories(int userId);
+    void updateCategory(int userId, Category category);
+    void deleteCategory(int userId, Category category);
 }
