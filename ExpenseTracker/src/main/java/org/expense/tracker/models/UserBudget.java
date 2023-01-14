@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class UserBudget {
-    private Map<Integer, CategoryBudget> budget;
+    private Map<Integer, Budget> budget;
 
     public UserBudget() {
         budget = new HashMap<>();
@@ -14,11 +14,11 @@ public class UserBudget {
         if (budget.containsKey(categoryId)) {
             budget.remove(categoryId);
         }
-        budget.put(categoryId, new CategoryBudget(categoryId, category, amount));
+        budget.put(categoryId, new Budget(categoryId, category, amount));
     }
 
     public void setBudgetForCategory(int categoryId, Category category, double amount) {
-        budget.put(categoryId, new CategoryBudget(categoryId, category, amount));
+        budget.put(categoryId, new Budget(categoryId, category, amount));
     }
 
     public double getBudgetForCategory(int category) {

@@ -4,7 +4,7 @@ import org.expense.tracker.managers.CategoryManager;
 import org.expense.tracker.managers.UserManager;
 import org.expense.tracker.managers.TransactionManager;
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.store.datastores.DataRepository;
@@ -50,7 +50,7 @@ public class InMemoryRepository implements DataRepository {
     }
 
     @Override
-    public List<CategoryBudget> getCategoryBudgets(int profileId) {
+    public List<Budget> getCategoryBudgets(int profileId) {
         return userManager.getProfile(profileId).getBudgetManager().getBudgetList();
     }
 

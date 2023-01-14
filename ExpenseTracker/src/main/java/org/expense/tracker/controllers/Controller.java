@@ -1,7 +1,7 @@
 package org.expense.tracker.controllers;
 
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.store.datastores.DataRepository;
@@ -88,7 +88,7 @@ public class Controller {
 
     // CRUD for budget
 
-    public List<CategoryBudget> getCategoryBudgets(int profileId) {
+    public List<Budget> getCategoryBudgets(int profileId) {
         return dataRepository.getCategoryBudgets(profileId);
     }
 
@@ -97,9 +97,9 @@ public class Controller {
     }
 
     public double getTotalBudget(int profileId) {
-        List<CategoryBudget> budgetList = getCategoryBudgets(profileId);
+        List<Budget> budgetList = getCategoryBudgets(profileId);
         double total = 0;
-        for (CategoryBudget budget : budgetList) {
+        for (Budget budget : budgetList) {
             total += budget.getBudgetVal();
         }
         return total;

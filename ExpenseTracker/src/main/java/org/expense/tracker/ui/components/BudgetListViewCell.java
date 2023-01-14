@@ -7,16 +7,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import org.expense.tracker.managers.CategoryManager;
-import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
-import org.expense.tracker.models.Transaction;
+import org.expense.tracker.models.Budget;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class BudgetListViewCell extends ListCell<CategoryBudget>{
+public class BudgetListViewCell extends ListCell<Budget>{
 
     @FXML
     private Label category;
@@ -42,7 +39,7 @@ public class BudgetListViewCell extends ListCell<CategoryBudget>{
 
 
     @Override
-    protected void updateItem(CategoryBudget object, boolean empty) {
+    protected void updateItem(Budget object, boolean empty) {
         super.updateItem(object, empty);
 
         if(empty || object == null) {

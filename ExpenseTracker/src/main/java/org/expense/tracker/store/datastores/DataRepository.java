@@ -1,7 +1,7 @@
 package org.expense.tracker.store.datastores;
 
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 
@@ -18,7 +18,7 @@ public interface DataRepository {
     int addTransaction(int profileId, float amount, boolean recurring, String note, Category category,
                        Date transactionDate, boolean isExpense);
     List<Transaction> getTransactions(int profileId);
-    List<CategoryBudget> getCategoryBudgets(int profileId);
+    List<Budget> getCategoryBudgets(int profileId);
     List<Transaction> getExpenses(int profileId);
     List<Transaction> getIncomes(int profileId);
     void updateTransaction(int profileId, Transaction transaction);

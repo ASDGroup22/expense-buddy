@@ -12,7 +12,7 @@ import java.time.ZoneId;
 
 import org.expense.tracker.controllers.Controller;
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.ui.components.BudgetForm;
@@ -108,7 +108,7 @@ public class MainController implements Initializable{
 
     private BudgetListView budgetListView;
     private BudgetViewHeader budgetViewHeader;
-    private ObservableList<CategoryBudget> budgetObservableList;
+    private ObservableList<Budget> budgetObservableList;
 
     private ProfileForm profileForm;
     private TransactionForm transactionForm;
@@ -213,7 +213,7 @@ public class MainController implements Initializable{
 
         budgetObservableList = FXCollections.observableArrayList();
 
-        for (CategoryBudget budget : controller.getCategoryBudgets(selectedProfileId)) {
+        for (Budget budget : controller.getCategoryBudgets(selectedProfileId)) {
             budgetObservableList.add(budget);
         }
 

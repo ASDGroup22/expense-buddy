@@ -1,7 +1,7 @@
 package org.expense.tracker.store.datastores.repos;
 
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.store.datastores.DataRepository;
@@ -278,14 +278,14 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public List<CategoryBudget> getCategoryBudgets(int profileId) {
-        List<CategoryBudget> budgetList = new ArrayList<>();
+    public List<Budget> getCategoryBudgets(int profileId) {
+        List<Budget> budgetList = new ArrayList<>();
         try {
             String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + profileId + " AND is_expense_category = true";
             ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectProfile);
 
             while (resultSet.next()) {
-                budgetList.add(new CategoryBudget(resultSet.getInt("category_id"),
+                budgetList.add(new Budget(resultSet.getInt("category_id"),
                         new Category(resultSet.getInt("category_id"), resultSet.getString("category_name")
                         , resultSet.getBoolean("is_expense_category")), resultSet.getDouble("budget")));
             }
