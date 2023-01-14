@@ -115,7 +115,6 @@ public class TestController {
 
     private void testBudget(Controller controller, int userId) {
         Assert.assertEquals(controller.getExpenseCategories(userId).size(), 4);
-        int categoryId = controller.getExpenseCategories(userId).get(3).getId();
         controller.updateBudget(userId, controller.getExpenseCategories(userId).get(0).getId(), 10000.00);
         controller.updateBudget(userId, controller.getExpenseCategories(userId).get(1).getId(), 20000.00);
         controller.updateBudget(userId, controller.getExpenseCategories(userId).get(2).getId(), 30000.00);
