@@ -226,7 +226,7 @@ public class MainController implements Initializable{
         } else if (selectedTab.equalsIgnoreCase("transaction")){
             transactionTabClicked();
         } else if (selectedTab.equalsIgnoreCase("budget")){
-            transactionTabClicked();
+            budgetTabClicked();
         } else if (selectedTab.equalsIgnoreCase("category")){
             categoryTabClicked();
         } else if (selectedTab.equalsIgnoreCase("settings")){
@@ -270,12 +270,13 @@ public class MainController implements Initializable{
             
             homeView.setIncomeCategoryObservableList(incomeCategoryObservableList);
             homeView.setExpenseCategoryObservableList(expenseCategoryObservableList);
+            homeView.setBudgetObservableList(budgetObservableList);
 
             homeView.getProfileBudgetLabel().setText(budgetTotal);
             homeView.getIncomeTotalLabel().setText(incomeTotal);
             homeView.getExpenseTotalLabel().setText(expenseTotal);
             homeView.getBalanceTotalLabel().setText(balanceTotal);
-            homeView.setSelectcategoryEventhandler(selectcategoryEventhandler);
+            homeView.setSelectcategoryEventhandler(selectCategoryEventHandler);
 
             homeView.setMainColorOnValue();
 
@@ -405,7 +406,7 @@ public class MainController implements Initializable{
         budgetForm.setCancelButtonClickHandler(budgetCancelButtonClickHandler);
     }
 
-    public void setCategorFormView(){
+    public void setCategoryFormView(){
         categoryForm = new CategoryForm();
         categoryForm.setActionButtonClickHandler(categoryActionButtonClickHandler);
         categoryForm.setDeleteButtonClickHandler(categoryDeleteButtonClickHandler);
@@ -575,7 +576,7 @@ public class MainController implements Initializable{
 
 // Action handlers - Home
 
-    EventHandler<ActionEvent> selectcategoryEventhandler = new EventHandler<ActionEvent>() {
+    EventHandler<ActionEvent> selectCategoryEventHandler = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent arg0) {
@@ -584,9 +585,9 @@ public class MainController implements Initializable{
 
             try {
 
-                Float catgeorySummary = controller.getCategorySummary(selectedProfileId, category.getId());
+                Float categorySummary = controller.getCategorySummary(selectedProfileId, category.getId());
 
-                String catSummary = Float.toString(catgeorySummary);
+                String catSummary = Float.toString(categorySummary);
 
                 if(!category.isExpenseCategory()){
 
@@ -749,7 +750,6 @@ public class MainController implements Initializable{
             try {
 
                 setBudgetFormView();
-                budgetForm.setFormMode("Update");
 
                 int categoryId = budgetListView.getCategoryBudgetListView().getSelectionModel().getSelectedItem().getCategory().getId();
                 String categoryName = budgetListView.getCategoryBudgetListView().getSelectionModel().getSelectedItem().getCategory().getName();
@@ -759,8 +759,8 @@ public class MainController implements Initializable{
                 budgetForm.getCategory().setText(categoryName);
                 budgetForm.getAmount().setText(String.valueOf(budgetVal));
 
-                innerBorder.setCenter(budgetForm.getBudgetForm());
                 innerBorder.setTop(headLabel.getHeadLabel("Update Budget"));
+                innerBorder.setCenter(budgetForm.getBudgetForm());
             } catch (NullPointerException e){
 
             } catch (Exception e) {
@@ -779,11 +779,7 @@ public class MainController implements Initializable{
 
                 int categoryId = budgetForm.getId();
                 float budgetVal = Float.parseFloat(budgetForm.getAmount().getText());
-
-                if (budgetForm.getFormMode().equalsIgnoreCase("UPDATE")){
-                    controller.updateBudget(selectedProfileId, categoryId, budgetVal);
-                }
-
+                controller.updateBudget(selectedProfileId, categoryId, budgetVal);
                 budgetTabClicked();
 
             } catch (NumberFormatException e) {
@@ -820,7 +816,7 @@ public class MainController implements Initializable{
         @Override
         public void handle(MouseEvent event) {
 
-            setCategorFormView();
+            setCategoryFormView();
             categoryForm.setFormMode("INSERT");
             
             innerBorder.setCenter(categoryForm.getCategoryForm(true)); 
@@ -840,7 +836,7 @@ public class MainController implements Initializable{
                 if (category.equals(null)){
 
                 } else {
-                    setCategorFormView();
+                    setCategoryFormView();
                     categoryForm.setFormMode("Update");
 
                     int categoryId = category.getId();

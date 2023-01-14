@@ -35,20 +35,14 @@ public class BudgetForm {
     private Label amountLabel;
     private TextField amount;
 
-    private ToggleGroup toggleGroup;
-
     private Label categoryLabel;
     private TextField category;
 
     private Button actionButton;
     private Button cancelButton;
 
-    private CategoryBudget budget;
-
     private EventHandler<MouseEvent> actionButtonClickHandler;
     private EventHandler<MouseEvent> cancelButtonClickHandler;
-
-    private String formMode;
 
     public BudgetForm() {
         gridPane = new GridPane();
@@ -56,20 +50,13 @@ public class BudgetForm {
         gridPane.setHgap(8);
         gridPane.setVgap(8);
 
-        amountLabel = new Label("Amount");
+        amountLabel = new Label("Budget");
         categoryLabel = new Label("Category");
 
         amount = new TextField();
         category = new TextField();
 
-        toggleGroup = new ToggleGroup();
-
-        ColumnConstraints columnConstraint = new ColumnConstraints();
-        columnConstraint.setPercentWidth(100d/2);
-        gridPane.getColumnConstraints().add(columnConstraint);
-
-
-        actionButton = new Button();
+        actionButton = new Button("Update");
         cancelButton = new Button("Cancel");
 
         cancelButton.getStyleClass().add("button-cancel");
@@ -78,11 +65,11 @@ public class BudgetForm {
         errorLabel.getStyleClass().add("label-red");
 
 
-        gridPane.add(amountLabel, 0, 0);
-        gridPane.add(amount, 1, 0);
+        gridPane.add(categoryLabel, 0, 0);
+        gridPane.add(category, 1, 0);
 
-        gridPane.add(categoryLabel, 0, 3);
-        gridPane.add(category, 1, 3);
+        gridPane.add(amountLabel, 0, 3);
+        gridPane.add(amount, 1, 3);
 
         gridPane.add(errorLabel, 1, 7, 2, 1);
 
@@ -95,14 +82,8 @@ public class BudgetForm {
     }
 
     public GridPane getBudgetForm(){
-
-        actionButton.setText(formMode);
-
         actionButton.setOnMouseClicked(actionButtonClickHandler);
         cancelButton.setOnMouseClicked(cancelButtonClickHandler);
-
-        category.setText(this.budget.getCategory().getName());
-
         actionButton.getStyleClass().add("button-update");
         return gridPane;
     }
@@ -132,14 +113,6 @@ public class BudgetForm {
         this.actionButtonClickHandler = actionButtonClickHandler;
     }
 
-    public String getFormMode() {
-        return formMode;
-    }
-
-    public void setFormMode(String formMode) {
-        this.formMode = formMode;
-    }
-
     public EventHandler<MouseEvent> getCancelButtonClickHandler() {
         return cancelButtonClickHandler;
     }
@@ -154,14 +127,6 @@ public class BudgetForm {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public ToggleGroup getToggleGroup() {
-        return toggleGroup;
-    }
-
-    public void setToggleGroup(ToggleGroup toggleGroup) {
-        this.toggleGroup = toggleGroup;
     }
 
     public Label getErrorLabel() {
