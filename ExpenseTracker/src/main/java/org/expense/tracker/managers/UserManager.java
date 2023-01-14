@@ -12,9 +12,9 @@ public class UserManager {
         userList = new ArrayList<>();
     }
 
-    public int createProfile(String name, float budget){
+    public int createProfile(String name) {
         int id = userList.size();
-        User user = new User(id,name, budget);
+        User user = new User(id, name);
         userList.add(user);
         return id;
     }
@@ -23,12 +23,12 @@ public class UserManager {
         return userList;
     }
 
-    public void updateProfile(User newUser){
+    public void updateProfile(User newUser) {
         User user = getProfile(newUser.getUserId());
         user.setUserName(newUser.getUserName());
     }
 
-    public void deleteProfile(int profileId){
+    public void deleteProfile(int profileId) {
         userList.remove(profileId);
     }
 

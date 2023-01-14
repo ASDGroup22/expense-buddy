@@ -20,12 +20,12 @@ public class Controller {
     private final DataRepository dataRepository = selectDataRepository();
 
     public Controller() {
-        createProfile("user1", 0);
+        createProfile("user1");
     }
 
     // CRUD for profiles
-    public int createProfile(String profileName, float budget) {
-        int profileId = dataRepository.addProfile(profileName, budget);
+    public int createProfile(String profileName) {
+        int profileId = dataRepository.addProfile(profileName);
         loadCategoryPresets(profileId);
         return profileId;
     }

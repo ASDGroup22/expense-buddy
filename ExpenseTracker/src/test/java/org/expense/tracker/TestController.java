@@ -35,17 +35,17 @@ public class TestController {
     }
 
     private int testProfiles(Controller controller) {
-        Assert.assertEquals(controller.getProfiles().get(0).getUserName(), "user1");
+        controller.createProfile("user01");
+        Assert.assertEquals(controller.getProfiles().get(0).getUserName(), "user01");
         controller.deleteProfile(0);
         Assert.assertEquals(controller.getProfiles().size(),0);
 
-        int profId = controller.createProfile("Dilhasha",500);
+        int profId = controller.createProfile("user02");
         User userDb = controller.getProfiles().get(profId);
-        Assert.assertEquals(userDb.getUserName(), "Dilhasha");
-        userDb.setBudget(1000);
-
+        Assert.assertEquals(userDb.getUserName(), "user02");
+        userDb.setUserName("user03");
         controller.updateProfile(userDb);
-        Assert.assertEquals(controller.getProfile(profId).getBudget(), 1000f);
+        Assert.assertEquals(controller.getProfile(profId).getUserName(), "user03");
         return profId;
     }
 

@@ -17,8 +17,8 @@ public class InMemoryRepository implements DataRepository {
     UserManager userManager = new UserManager();
 
     @Override
-    public int addProfile(String profileName, float budget) {
-        return userManager.createProfile(profileName, budget);
+    public int addProfile(String profileName) {
+        return userManager.createProfile(profileName);
     }
 
     @Override

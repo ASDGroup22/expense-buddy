@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface DataRepository {
-    int addProfile(String profileName, float budget);
+    int addProfile(String profileName);
     List<User> getProfiles();
     User getProfile(int profileId);
     void updateProfile(User user);

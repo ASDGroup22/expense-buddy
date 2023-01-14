@@ -21,9 +21,6 @@ public class ProfileForm {
     private Label nameLabel;
     private TextField name;
 
-    private Label budgetLabel;
-    private TextField budget;
-
     private Button actionButton;
     private Button deleteButton;
     private Button cancelButton;
@@ -44,10 +41,6 @@ public class ProfileForm {
         nameLabel = new Label("Name");
         name = new TextField();
 
-        budgetLabel = new Label("Budget");
-        budget = new TextField();
-
-
         ColumnConstraints columnConstraint = new ColumnConstraints();
         columnConstraint.setPercentWidth(100d/2);
         gridPane.getColumnConstraints().add(columnConstraint);
@@ -63,9 +56,6 @@ public class ProfileForm {
 
         gridPane.add(nameLabel, 0, 0);
         gridPane.add(name, 1, 0);
-
-        gridPane.add(budgetLabel, 0, 1);
-        gridPane.add(budget, 1, 1);
 
         gridPane.add(actionButton, 0, 8);
         gridPane.add(deleteButton, 1, 8);
@@ -126,14 +116,6 @@ public class ProfileForm {
 
     public void setFormMode(String formMode) {
         this.formMode = formMode;
-    }
-
-    public TextField getBudget() {
-        return budget;
-    }
-
-    public void setBudget(TextField budget) {
-        this.budget = budget;
     }
 
     public int getId() {

@@ -22,24 +22,22 @@ public class User {
     private TransactionManager transactionManager;
     private CategoryManager categoryManager;
     private BudgetManager budgetManager;
-    private float budget;
 
     // Represents total budget
     public User() {
     }
 
-    public User(int userId, String userName, float budget) {
+    public User(int userId, String userName) {
         this.userId = userId;
         this.userName = userName;
         this.transactionManager = new TransactionManager();
         this.categoryManager = new CategoryManager();
     }
 
-    public User(String userName, float budget) {
+    public User(String userName) {
         this.userName = userName;
         this.transactionManager = new TransactionManager();
         this.categoryManager = new CategoryManager();
-        this.budget = budget;
     }
 
     public String getUserName() {
@@ -80,14 +78,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public float getBudget() {
-        return budget;
-    }
-
-    public void setBudget(float budget) {
-        this.budget = budget;
     }
 
     @Override

@@ -160,11 +160,11 @@ public class MainController implements Initializable{
         innerBorder.setCenter(initialLabel);
 
         try {
-            imageHome = new FileInputStream(new File(this.getClass().getResource("../images/icon-home.png").getFile()));
-            imageTransaction = new FileInputStream(new File(this.getClass().getResource("../images/icon-transaction.png").getFile()));
-            imageBudget = new FileInputStream(new File(this.getClass().getResource("../images/icon-budget.png").getFile()));
+            imageHome = new FileInputStream(new File(this.getClass().getResource("../images/icon-home.jpeg").getFile()));
+            imageTransaction = new FileInputStream(new File(this.getClass().getResource("../images/icon-transaction.jpeg").getFile()));
+            imageBudget = new FileInputStream(new File(this.getClass().getResource("../images/icon-budget.jpeg").getFile()));
             imageCategory = new FileInputStream(new File(this.getClass().getResource("../images/icon-categories.png").getFile()));
-            imageSettings = new FileInputStream(new File(this.getClass().getResource("../images/icon-settings.png").getFile()));
+            imageSettings = new FileInputStream(new File(this.getClass().getResource("../images/icon-settings.jpeg").getFile()));
 
             homeIcon.setImage(new Image(imageHome));
             transactionIcon.setImage(new Image(imageTransaction));
@@ -258,15 +258,15 @@ public class MainController implements Initializable{
         homeView = new HomeView();
 
         try {
-            Float budgetSummary = controller.getProfile(selectedProfileId).getBudget();
-            Float incomeSummary = controller.getIncomeSummary(selectedProfileId);
-            Float expenseSummary = controller.getExpenseSummary(selectedProfileId);
-            Float balanceSummary = budgetSummary + incomeSummary - expenseSummary;
+            double budgetSummary = controller.getProfile(selectedProfileId).getBudgetManager().getTotalBudget();
+            double incomeSummary = controller.getIncomeSummary(selectedProfileId);
+            double expenseSummary = controller.getExpenseSummary(selectedProfileId);
+            double balanceSummary = budgetSummary + incomeSummary - expenseSummary;
 
-            String budgetTotal = Float.toString(budgetSummary);
-            String incomeTotal = Float.toString(incomeSummary);
-            String expenseTotal = Float.toString(expenseSummary);
-            String balanceTotal = Float.toString(balanceSummary);
+            String budgetTotal = Double.toString(budgetSummary);
+            String incomeTotal = Double.toString(incomeSummary);
+            String expenseTotal = Double.toString(expenseSummary);
+            String balanceTotal = Double.toString(balanceSummary);
             
             homeView.setIncomeCategoryObservableList(incomeCategoryObservableList);
             homeView.setExpenseCategoryObservableList(expenseCategoryObservableList);
@@ -453,25 +453,16 @@ public class MainController implements Initializable{
             try {
                 int profileId = profileForm.getId();
                 String profileName = profileForm.getName().getText();
-                String budgetString = profileForm.getBudget().getText();
 
-                Float budget = Float.valueOf(0);
-
-                if (budgetString.isEmpty()){
-
-                } else {
-                    budget = Float.parseFloat(budgetString);
-                }
-                
                 if (profileForm.getFormMode().equalsIgnoreCase("INSERT")){
 
-                    controller.createProfile(profileName, budget);
+                    controller.createProfile(profileName);
 
                     resetView();
 
                 } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")){
 
-                    User user = new User(profileId, profileName, budget);
+                    User user = new User(profileId, profileName);
                     
                     controller.updateProfile(user);
 

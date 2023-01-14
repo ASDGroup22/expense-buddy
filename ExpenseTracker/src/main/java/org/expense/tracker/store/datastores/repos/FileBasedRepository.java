@@ -37,11 +37,11 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public int addProfile(String profileName, float budget) {
+    public int addProfile(String profileName) {
         int id = getProfiles().size();
         try {
             String sqlStringInsertProfile =
-                    "INSERT INTO PROFILES VALUES(" + id + ",'" + profileName + "'," + budget + ");";
+                    "INSERT INTO PROFILES VALUES(" + id + ",'" + profileName + "');";
             connection.createStatement().executeQuery(sqlStringInsertProfile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,7 +60,6 @@ public class FileBasedRepository implements DataRepository {
                 User user = new User();
                 user.setUserId(resultSet.getInt("profile_id"));
                 user.setUserName(resultSet.getString("profile_name"));
-                user.setBudget(resultSet.getFloat("budget"));
                 objects.add(user);
             }
         } catch (Exception e) {
@@ -80,7 +79,6 @@ public class FileBasedRepository implements DataRepository {
                 User user = new User();
                 user.setUserId(resultSet.getInt("profile_id"));
                 user.setUserName(resultSet.getString("profile_name"));
-                user.setBudget(resultSet.getFloat("budget"));
                 return user;
             }
         } catch (Exception e) {
@@ -93,10 +91,9 @@ public class FileBasedRepository implements DataRepository {
     public void updateProfile(User user) {
         try {
             String profileName = user.getUserName();
-            float budget = user.getBudget();
 
             String sqlStringUpdateProfile =
-                    "UPDATE PROFILES SET profile_name = '" + profileName + "' , budget = " + budget + " WHERE profile_id = " + user.getUserId();
+                    "UPDATE PROFILES SET profile_name = '" + profileName + "' WHERE profile_id = " + user.getUserId();
 
             connection.createStatement().executeQuery(sqlStringUpdateProfile);
         } catch (Exception e) {
