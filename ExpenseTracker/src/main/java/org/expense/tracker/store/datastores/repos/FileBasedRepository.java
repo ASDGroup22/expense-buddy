@@ -284,7 +284,7 @@ public class FileBasedRepository implements DataRepository {
     public List<CategoryBudget> getCategoryBudgets(int profileId) {
         List<CategoryBudget> budgetList = new ArrayList<>();
         try {
-            String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + profileId;
+            String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + profileId + " AND is_expense_category = true";
             ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectProfile);
 
             while (resultSet.next()) {

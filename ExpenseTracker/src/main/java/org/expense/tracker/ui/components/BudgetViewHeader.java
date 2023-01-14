@@ -16,9 +16,7 @@ public class BudgetViewHeader {
     private HBox innerBoxSummary;
     private Region region1;
     private Region region2;
-    private Region region3;
     private Region region4;
-    private Region region5;
     private Region region6;
     Label innerBoxHeadLabel;
     Label totalBudget;
@@ -26,7 +24,7 @@ public class BudgetViewHeader {
     private EventHandler<MouseEvent> addTransactionItemClickHandler;
 
 
-    public BudgetViewHeader(String innerBoxHeadLabel, String income, String expense) {
+    public BudgetViewHeader(String innerBoxHeadLabel, String income) {
 
         this.outerBox = new VBox();
         this.innerBoxHead = new HBox();
@@ -35,9 +33,7 @@ public class BudgetViewHeader {
 
         this.region1 = new Region();
         this.region2 = new Region();
-        this.region3 = new Region();
         this.region4 = new Region();
-        this.region5 = new Region();
         this.region6 = new Region();
         this.innerBoxHeadLabel = new Label(innerBoxHeadLabel);
         this.innerBoxHeadLabel.getStyleClass().add("label-head");
@@ -49,9 +45,7 @@ public class BudgetViewHeader {
 
         HBox.setHgrow(region1, Priority.ALWAYS);
         HBox.setHgrow(region2, Priority.ALWAYS);
-        HBox.setHgrow(region3, Priority.ALWAYS);
         HBox.setHgrow(region4, Priority.ALWAYS);
-        HBox.setHgrow(region5, Priority.ALWAYS);
         HBox.setHgrow(region6, Priority.ALWAYS);
 
 
@@ -63,9 +57,10 @@ public class BudgetViewHeader {
     }
 
 
-    public VBox getTransactionViewHeader(){
+    public VBox getBudgetViewHeader(){
         
         innerBoxHead.getChildren().addAll(region1, innerBoxHeadLabel, region2);
+        innerBoxSummary.getChildren().addAll(region4, totalBudget, region6);
         outerBox.getChildren().addAll(innerBoxHead, innerBoxItems, innerBoxSummary);
         return outerBox;
 

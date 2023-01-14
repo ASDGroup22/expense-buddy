@@ -96,6 +96,15 @@ public class Controller {
         dataRepository.updateBudget(profileId, categoryId, budget);
     }
 
+    public double getTotalBudget(int profileId) {
+        List<CategoryBudget> budgetList = getCategoryBudgets(profileId);
+        double total = 0;
+        for (CategoryBudget budget : budgetList) {
+            total += budget.getBudgetVal();
+        }
+        return total;
+    }
+
     // CRUD for Categories
 
 //    public int createIncomeCategory(int profileId, String categoryName){

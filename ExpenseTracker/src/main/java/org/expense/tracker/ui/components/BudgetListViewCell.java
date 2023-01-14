@@ -66,14 +66,8 @@ public class BudgetListViewCell extends ListCell<CategoryBudget>{
             }
 
             try {
-
-                Category itemCategory = object.getCategory();
                 imageEdit = new FileInputStream(new File(this.getClass().getResource("../../images/icon-edit.png").getFile()));
-
-
-                
                 budgetItemEditIcon.setImage(new Image(imageEdit));
-
                 category.setText(object.getCategory().getName());
                 amount.setText(String.valueOf(object.getBudgetVal()));
 

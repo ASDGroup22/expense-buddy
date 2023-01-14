@@ -322,19 +322,16 @@ public class MainController implements Initializable{
         budgetListView = new BudgetListView();
 
         budgetListView.setCategoryBudgetObservableList(budgetObservableList);
-        budgetListView.setBudgetItemClickHandler(transactionItemClickHandler);
+        budgetListView.setBudgetItemClickHandler(budgetItemClickHandler);
 
-        transactionViewHeader = new TransactionViewHeader("Transactions", Float.toString(controller.getIncomeSummary(selectedProfileId)),
-                Float.toString(controller.getExpenseSummary(selectedProfileId)));
+        budgetViewHeader = new BudgetViewHeader("Budget", Double.toString(controller.getTotalBudget(selectedProfileId)));
 
-        transactionViewHeader.setAddTransactionItemClickHandler(addTransactionItemClickHandler);
-
-        innerBorder.setTop(transactionViewHeader.getTransactionViewHeader());
-        innerBorder.setCenter(transactionListView.getTransactionListView());
+        innerBorder.setTop(budgetViewHeader.getBudgetViewHeader());
+        innerBorder.setCenter(budgetListView.getCategoryBudgetListView());
 
         setHeadBarView();
 
-        selectedTab = "transaction";
+        selectedTab = "budget";
     }
 
     public void categoryTabClicked(){
