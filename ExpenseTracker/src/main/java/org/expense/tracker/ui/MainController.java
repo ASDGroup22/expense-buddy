@@ -160,11 +160,11 @@ public class MainController implements Initializable{
         innerBorder.setCenter(initialLabel);
 
         try {
-            imageHome = new FileInputStream(new File(this.getClass().getResource("../images/icon-home.jpeg").getFile()));
-            imageTransaction = new FileInputStream(new File(this.getClass().getResource("../images/icon-transaction.jpeg").getFile()));
-            imageBudget = new FileInputStream(new File(this.getClass().getResource("../images/icon-budget.jpeg").getFile()));
+            imageHome = new FileInputStream(new File(this.getClass().getResource("../images/icons-home-page.png").getFile()));
+            imageTransaction = new FileInputStream(new File(this.getClass().getResource("../images/icons-transaction-img1.png").getFile()));
+            imageBudget = new FileInputStream(new File(this.getClass().getResource("../images/icon-budget-img1.png").getFile()));
             imageCategory = new FileInputStream(new File(this.getClass().getResource("../images/icon-categories.png").getFile()));
-            imageSettings = new FileInputStream(new File(this.getClass().getResource("../images/icon-settings.jpeg").getFile()));
+            imageSettings = new FileInputStream(new File(this.getClass().getResource("../images/icons-settings-img1.png").getFile()));
 
             homeIcon.setImage(new Image(imageHome));
             transactionIcon.setImage(new Image(imageTransaction));
