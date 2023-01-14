@@ -59,7 +59,7 @@ public class HomeView {
         this.gridPane.setHgap(8);
         this.gridPane.setVgap(8);
 
-        this.summaryHeadLabel = new Label("Summary of incomes and expenses");
+        this.summaryHeadLabel = new Label("Incomes and Expenses");
         summaryHeadLabel.getStyleClass().add("label-sub-head");
         this.profileBudgetNameLabel = new Label("Budget");
         this.profileBudgetLabel = new Label();
@@ -97,7 +97,7 @@ public class HomeView {
         this.earningLabel = new Label();
         earningLabel.getStyleClass().add("label-green");
 
-        this.categoryOptionNameLabel = new Label("Type");
+        this.categoryOptionNameLabel = new Label("Transaction Type");
         this.toggleGroup = new ToggleGroup();
 
         this.incomeOption =  new RadioButton("Income");

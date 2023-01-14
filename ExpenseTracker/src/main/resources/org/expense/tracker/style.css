@@ -1,5 +1,6 @@
 .root {
-    -fx-background-color: #21282e;
+    -fx-background-color: #5e548e;
+    -fx-font-family: "Times New Roman";
 }
 
 
@@ -7,150 +8,198 @@
     -fx-text-fill: rgb(19, 19, 119);
     -fx-font-size: 16;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 14;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-sub-head {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 16;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-head {
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 18;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-black {
     -fx-text-fill: #000000;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-black-bold {
     -fx-background-color: #3c3b3d;
-    -fx-text-fill: #1c0453;
+    -fx-text-fill: #0e9594;
     -fx-font-size: 18;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 
 }
 
 .label-red {
-    -fx-text-fill: #ff0000;
+    -fx-text-fill: #ff6b6b;
     -fx-font-size: 14;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-red-sub-head {
-    -fx-text-fill: #ff0000;
+    -fx-text-fill: #ff6b6b;
     -fx-font-size: 16;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-red-head {
-    -fx-text-fill: #ff0000;
+    -fx-text-fill: #ff6b6b;
     -fx-font-size: 18;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-green {
-    -fx-text-fill: #0bdf39;
+    -fx-text-fill: #4ecdc4;
     -fx-font-size: 14;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-green-sub-head {
-    -fx-text-fill: #0bdf39;
+    -fx-text-fill: #4ecdc4;
     -fx-font-size: 16;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-green-head {
-    -fx-text-fill: #0bdf39;
+    -fx-text-fill: #4ecdc4;
     -fx-font-size: 18;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .label-blue {
-    -fx-text-fill: #a9c6f1;
+    -fx-text-fill: #9f86c0;
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .button-delete {
-    -fx-background-color: #e02108;
+    -fx-background-color: #bc4749;
     -fx-text-fill: #FFFFFF; 
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .button-cancel {
-    -fx-background-color: #444343;
+    -fx-background-color: #8d99ae;
     -fx-text-fill: #FFFFFF; 
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .button-create {
-    -fx-background-color: #10c045;
+    -fx-background-color: #7678ed;
     -fx-text-fill: #FFFFFF; 
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .button-update {
-    -fx-background-color: #2431dd;
+    -fx-background-color: #118ab2;
     -fx-text-fill: #FFFFFF; 
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .button-income {
-    -fx-background-color: grey;
+    -fx-background-color: #dee2ff;
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .button-expense {
-    -fx-background-color: grey;
+    -fx-background-color: #dee2ff;
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .button-income:selected {
-    -fx-background-color: #0eb11c;
+    -fx-background-color: #4ecdc4;
     -fx-text-fill: #FFFFFF; 
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 .button-expense:selected {
-    -fx-background-color: #e74016;
+    -fx-background-color: #ff6b6b;
     -fx-text-fill: #FFFFFF; 
     -fx-font-weight: bold;
+    -fx-font-family: "Times New Roman";
+
 }
 
 
 .button-add {
-    -fx-background-color: #ca4938;
+    -fx-background-color: #231942;
     -fx-text-fill: #FFFFFF; 
     -fx-font-size: 12;
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .button-add-profile {
     -fx-background: white;
-    -fx-background-color: #06443a;
+    -fx-background-color: #231942;
     -fx-text-fill: #ffffff; 
     -fx-font-size: 12;
     -fx-font-weight: bold;
-    
+    -fx-font-family: "Times New Roman";
+
+
 }
 
 .combo-box-profile {
     -fx-text-fill: #ffffff;
+    -fx-font-family: "Times New Roman";
+
 }
