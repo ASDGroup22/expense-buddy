@@ -72,6 +72,7 @@ public class BudgetListViewCell extends ListCell<CategoryBudget>{
                 amount.setText(String.valueOf(object.getBudgetVal()));
 
                 category.getStyleClass().add("label-black");
+                amount.getStyleClass().add("label-black");
             } catch (Exception e) {
                 e.printStackTrace();
             }

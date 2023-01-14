@@ -401,8 +401,8 @@ public class MainController implements Initializable{
     public void setBudgetFormView(){
         resetObservableLists();
         budgetForm = new BudgetForm();
-        budgetForm.setActionButtonClickHandler(transactionActionButtonClickHandler);
-        budgetForm.setCancelButtonClickHandler(transactionCancelButtonClickHandler);
+        budgetForm.setActionButtonClickHandler(budgetActionButtonClickHandler);
+        budgetForm.setCancelButtonClickHandler(budgetCancelButtonClickHandler);
     }
 
     public void setCategorFormView(){
@@ -748,7 +748,7 @@ public class MainController implements Initializable{
 
             try {
 
-                setTransactionFormView();
+                setBudgetFormView();
                 budgetForm.setFormMode("Update");
 
                 int categoryId = budgetListView.getCategoryBudgetListView().getSelectionModel().getSelectedItem().getCategory().getId();
@@ -760,7 +760,7 @@ public class MainController implements Initializable{
                 budgetForm.getAmount().setText(String.valueOf(budgetVal));
 
                 innerBorder.setCenter(budgetForm.getBudgetForm());
-                innerBorder.setTop(headLabel.getHeadLabel("Update budget"));
+                innerBorder.setTop(headLabel.getHeadLabel("Update Budget"));
             } catch (NullPointerException e){
 
             } catch (Exception e) {
