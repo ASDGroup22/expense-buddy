@@ -1,10 +1,12 @@
 package org.expense.tracker.controllers;
 
 import org.expense.tracker.models.Category;
+import org.expense.tracker.models.CategoryBudget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
-import org.expense.tracker.store.DataManagerFactoryProducer;
 import org.expense.tracker.store.datastores.DataRepository;
+import org.expense.tracker.store.datastores.repos.FileBasedRepository;
+import org.expense.tracker.store.datastores.repos.InMemoryRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +17,7 @@ import java.util.Properties;
 
 public class Controller {
 
-    private final DataRepository dataRepository =
-            DataManagerFactoryProducer.getFactory(getDatabaseProp()).getRepository();
+    private final DataRepository dataRepository = selectDataRepository();
 
     public Controller() {
         createProfile("user1", 0);
@@ -27,6 +28,15 @@ public class Controller {
         int profileId = dataRepository.addProfile(profileName, budget);
         loadCategoryPresets(profileId);
         return profileId;
+    }
+
+    private DataRepository selectDataRepository() {
+        switch (getDatabaseProp()) {
+            case "DB":
+                return new FileBasedRepository();
+            default:
+                return new InMemoryRepository();
+        }
     }
 
     public List<User> getProfiles() {
@@ -75,6 +85,25 @@ public class Controller {
         dataRepository.deleteTransaction(profileId, transaction);
     }
 
+
+    // CRUD for budget
+
+    public List<CategoryBudget> getCategoryBudgets(int profileId) {
+        return dataRepository.getCategoryBudgets(profileId);
+    }
+
+    public void updateBudget(int profileId, int categoryId, double budget) {
+        dataRepository.updateBudget(profileId, categoryId, budget);
+    }
+
+    public double getTotalBudget(int profileId) {
+        List<CategoryBudget> budgetList = getCategoryBudgets(profileId);
+        double total = 0;
+        for (CategoryBudget budget : budgetList) {
+            total += budget.getBudgetVal();
+        }
+        return total;
+    }
 
     // CRUD for Categories
 

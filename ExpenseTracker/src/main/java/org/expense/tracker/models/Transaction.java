@@ -88,7 +88,7 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "isExpense=" + isExpense +
-                "amount=" + amount +
+                ", amount=" + amount +
                 ", recurring=" + isRecurring +
                 ", note='" + note + '\'' +
                 ", category=" + category +

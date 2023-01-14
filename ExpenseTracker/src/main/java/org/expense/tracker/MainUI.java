@@ -8,12 +8,15 @@ import javafx.stage.Stage;
 import org.expense.tracker.ui.MainController;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 
 public class MainUI extends Application {
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
+        // Start the Java Debug Wire Protocol (JDWP)
         MainController mainController = new MainController();
         scene = new Scene(loadFXML("fxml/main_ui", mainController));
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());

@@ -5,14 +5,28 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <HBox fx:id="listItem" alignment="CENTER" prefWidth="375.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="categoryItemIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="category" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="Category" textAlignment="RIGHT">
+      <VBox prefHeight="54.0" prefWidth="211.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="category" text="Category">
+               <VBox.margin>
+                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Region HBox.hgrow="ALWAYS" />
+      <Region />
+      <Label fx:id="amount" alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" text="AMOUNT" textAlignment="RIGHT">
          <font>
-            <Font size="13.0" />
+            <Font size="15.0" />
          </font>
          <HBox.margin>
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
@@ -21,8 +35,7 @@
             <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
          </padding>
       </Label>
-      <Region HBox.hgrow="ALWAYS" />
-      <ImageView fx:id="categoryItemEditIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="budgetItemEditIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
    </children>
    <padding>
       <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />

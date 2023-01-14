@@ -13,6 +13,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.ToggleGroup;
+import org.expense.tracker.models.CategoryBudget;
 
 public class HomeView {
 
@@ -51,6 +52,7 @@ public class HomeView {
 
     private ObservableList<Category> incomeCategoryObservableList;
     private ObservableList<Category> expenseCategoryObservableList;
+    private ObservableList<CategoryBudget> budgetObservableList;
 
     public HomeView() {
 
@@ -359,6 +361,9 @@ public class HomeView {
         this.expenseCategoryObservableList = expenseCategoryObservableList;
     }
 
+    public void setBudgetObservableList(ObservableList<CategoryBudget> budgetObservableList) {
+        this.budgetObservableList = budgetObservableList;
+    }
     public RadioButton getIncomeOption() {
         return incomeOption;
     }

@@ -2,6 +2,7 @@ package org.expense.tracker.models;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.expense.tracker.managers.BudgetManager;
 import org.expense.tracker.managers.CategoryManager;
 import org.expense.tracker.managers.TransactionManager;
 
@@ -20,6 +21,7 @@ public class User {
     private String userName;
     private TransactionManager transactionManager;
     private CategoryManager categoryManager;
+    private BudgetManager budgetManager;
     private float budget;
 
     // Represents total budget
@@ -62,6 +64,14 @@ public class User {
 
     public CategoryManager getCategoryManager() {
         return categoryManager;
+    }
+
+    public BudgetManager getBudgetManager() {
+        return budgetManager;
+    }
+
+    public void setBudgetManager(BudgetManager budgetManager) {
+        this.budgetManager = budgetManager;
     }
 
     public void setCategoryManager(CategoryManager categoryManager) {

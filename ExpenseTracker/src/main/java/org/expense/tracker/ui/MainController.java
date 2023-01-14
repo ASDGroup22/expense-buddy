@@ -12,8 +12,12 @@ import java.time.ZoneId;
 
 import org.expense.tracker.controllers.Controller;
 import org.expense.tracker.models.Category;
+import org.expense.tracker.models.CategoryBudget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
+import org.expense.tracker.ui.components.BudgetForm;
+import org.expense.tracker.ui.components.BudgetListView;
+import org.expense.tracker.ui.components.BudgetViewHeader;
 import org.expense.tracker.ui.components.CategoryForm;
 import org.expense.tracker.ui.components.CategoryListView;
 import org.expense.tracker.ui.components.CategoryViewHeader;
@@ -102,8 +106,13 @@ public class MainController implements Initializable{
     private ObservableList<Category> incomeCategoryObservableList;
     private ObservableList<Category> expenseCategoryObservableList;
 
+    private BudgetListView budgetListView;
+    private BudgetViewHeader budgetViewHeader;
+    private ObservableList<CategoryBudget> budgetObservableList;
+
     private ProfileForm profileForm;
     private TransactionForm transactionForm;
+    private BudgetForm budgetForm;
     private CategoryForm categoryForm;
 
     private Controller controller;
@@ -126,16 +135,18 @@ public class MainController implements Initializable{
         this.categoryListView = new CategoryListView();
         this.settingsView = new SettingsView();
         this.profileListView = new ProfileListView();
-
+        this.budgetListView = new BudgetListView();
 
         this.profileForm = new ProfileForm();
         this.transactionForm = new TransactionForm();
         this.categoryForm = new CategoryForm();
+        this.budgetForm = new BudgetForm();
 
         this.transactionObservableList = FXCollections.observableArrayList();
         this.incomeCategoryObservableList = FXCollections.observableArrayList();
         this.expenseCategoryObservableList = FXCollections.observableArrayList();
         this.userObservableList =  FXCollections.observableArrayList();
+        this.budgetObservableList = FXCollections.observableArrayList();
 
         this.headBarView = new HeadBarView();
         this.headBar = new HBox();
@@ -200,6 +211,12 @@ public class MainController implements Initializable{
             transactionObservableList.add(transaction);
         }
 
+        budgetObservableList = FXCollections.observableArrayList();
+
+        for (CategoryBudget budget : controller.getCategoryBudgets(selectedProfileId)) {
+            budgetObservableList.add(budget);
+        }
+
     }
 
     private void resetView(){
@@ -208,6 +225,8 @@ public class MainController implements Initializable{
             homeTabClicked();
         } else if (selectedTab.equalsIgnoreCase("transaction")){
             transactionTabClicked();
+        } else if (selectedTab.equalsIgnoreCase("budget")){
+            budgetTabClicked();
         } else if (selectedTab.equalsIgnoreCase("category")){
             categoryTabClicked();
         } else if (selectedTab.equalsIgnoreCase("settings")){
@@ -251,12 +270,13 @@ public class MainController implements Initializable{
             
             homeView.setIncomeCategoryObservableList(incomeCategoryObservableList);
             homeView.setExpenseCategoryObservableList(expenseCategoryObservableList);
+            homeView.setBudgetObservableList(budgetObservableList);
 
             homeView.getProfileBudgetLabel().setText(budgetTotal);
             homeView.getIncomeTotalLabel().setText(incomeTotal);
             homeView.getExpenseTotalLabel().setText(expenseTotal);
             homeView.getBalanceTotalLabel().setText(balanceTotal);
-            homeView.setSelectcategoryEventhandler(selectcategoryEventhandler);
+            homeView.setSelectcategoryEventhandler(selectCategoryEventHandler);
 
             homeView.setMainColorOnValue();
 
@@ -294,6 +314,25 @@ public class MainController implements Initializable{
         setHeadBarView();
 
         selectedTab = "transaction";
+    }
+
+    public void budgetTabClicked(){
+
+        resetObservableLists();
+
+        budgetListView = new BudgetListView();
+
+        budgetListView.setCategoryBudgetObservableList(budgetObservableList);
+        budgetListView.setBudgetItemClickHandler(budgetItemClickHandler);
+
+        budgetViewHeader = new BudgetViewHeader("Budget", Double.toString(controller.getTotalBudget(selectedProfileId)));
+
+        innerBorder.setTop(budgetViewHeader.getBudgetViewHeader());
+        innerBorder.setCenter(budgetListView.getCategoryBudgetListView());
+
+        setHeadBarView();
+
+        selectedTab = "budget";
     }
 
     public void categoryTabClicked(){
@@ -360,7 +399,14 @@ public class MainController implements Initializable{
         transactionForm.setCancelButtonClickHandler(transactionCancelButtonClickHandler);
     }
 
-    public void setCategorFormView(){
+    public void setBudgetFormView(){
+        resetObservableLists();
+        budgetForm = new BudgetForm();
+        budgetForm.setActionButtonClickHandler(budgetActionButtonClickHandler);
+        budgetForm.setCancelButtonClickHandler(budgetCancelButtonClickHandler);
+    }
+
+    public void setCategoryFormView(){
         categoryForm = new CategoryForm();
         categoryForm.setActionButtonClickHandler(categoryActionButtonClickHandler);
         categoryForm.setDeleteButtonClickHandler(categoryDeleteButtonClickHandler);
@@ -530,7 +576,7 @@ public class MainController implements Initializable{
 
 // Action handlers - Home
 
-    EventHandler<ActionEvent> selectcategoryEventhandler = new EventHandler<ActionEvent>() {
+    EventHandler<ActionEvent> selectCategoryEventHandler = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent arg0) {
@@ -539,18 +585,15 @@ public class MainController implements Initializable{
 
             try {
 
-                Float catgeorySummary = controller.getCategorySummary(selectedProfileId, category.getId());
+                Float categorySummary = controller.getCategorySummary(selectedProfileId, category.getId());
 
-                String catSummary = Float.toString(catgeorySummary);
+                String catSummary = Float.toString(categorySummary);
 
                 if(!category.isExpenseCategory()){
 
                     homeView.getEarningLabel().setText(catSummary);
                     
                 } else if(category.isExpenseCategory()){
-
-                    //String budget = Float.toString(expense.getBudget());
-                    //String balance = Float.toString(expense.getBudget() - catgeorySummary);
 
                     homeView.getBudgetLabel().setText("0.00");
                     homeView.getExpenseLabel().setText(catSummary);
@@ -698,13 +741,82 @@ public class MainController implements Initializable{
         
     };
 
+// Action Handlers - Budget
+
+    EventHandler<MouseEvent> budgetItemClickHandler = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+
+            try {
+
+                setBudgetFormView();
+
+                int categoryId = budgetListView.getCategoryBudgetListView().getSelectionModel().getSelectedItem().getCategory().getId();
+                String categoryName = budgetListView.getCategoryBudgetListView().getSelectionModel().getSelectedItem().getCategory().getName();
+                double budgetVal = budgetListView.getCategoryBudgetListView().getSelectionModel().getSelectedItem().getBudgetVal();
+
+                budgetForm.setId(categoryId);
+                budgetForm.getCategory().setText(categoryName);
+                budgetForm.getAmount().setText(String.valueOf(budgetVal));
+
+                innerBorder.setTop(headLabel.getHeadLabel("Update Budget"));
+                innerBorder.setCenter(budgetForm.getBudgetForm());
+            } catch (NullPointerException e){
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
+
+    EventHandler<MouseEvent> budgetActionButtonClickHandler = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent arg0) {
+
+            try {
+
+                int categoryId = budgetForm.getId();
+                float budgetVal = Float.parseFloat(budgetForm.getAmount().getText());
+                controller.updateBudget(selectedProfileId, categoryId, budgetVal);
+                budgetTabClicked();
+
+            } catch (NumberFormatException e) {
+                budgetForm.getErrorLabel().setText("Error: Please validate inputs.");
+            } catch (NullPointerException e) {
+                budgetForm.getErrorLabel().setText("Error: Please validate inputs.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    };
+
+    EventHandler<MouseEvent> budgetCancelButtonClickHandler = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent arg0) {
+
+            try {
+                budgetTabClicked();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    };
+
+
 // Action Handlers - Category
 
     EventHandler<MouseEvent> addCategoryItemClickHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
 
-            setCategorFormView();
+            setCategoryFormView();
             categoryForm.setFormMode("INSERT");
             
             innerBorder.setCenter(categoryForm.getCategoryForm(true)); 
@@ -724,7 +836,7 @@ public class MainController implements Initializable{
                 if (category.equals(null)){
 
                 } else {
-                    setCategorFormView();
+                    setCategoryFormView();
                     categoryForm.setFormMode("Update");
 
                     int categoryId = category.getId();
