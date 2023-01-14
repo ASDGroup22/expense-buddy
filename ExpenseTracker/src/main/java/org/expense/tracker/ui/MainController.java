@@ -261,7 +261,7 @@ public class MainController implements Initializable{
             double budgetSummary = controller.getUser(selectedProfileId).getBudgetManager().getTotalBudget();
             double incomeSummary = controller.getIncomeSummary(selectedProfileId);
             double expenseSummary = controller.getExpenseSummary(selectedProfileId);
-            double balanceSummary = budgetSummary + incomeSummary - expenseSummary;
+            double balanceSummary = budgetSummary - expenseSummary;
 
             String budgetTotal = Double.toString(budgetSummary);
             String incomeTotal = Double.toString(incomeSummary);
@@ -276,6 +276,7 @@ public class MainController implements Initializable{
             homeView.getIncomeTotalLabel().setText(incomeTotal);
             homeView.getExpenseTotalLabel().setText(expenseTotal);
             homeView.getBalanceTotalLabel().setText(balanceTotal);
+
             homeView.setSelectcategoryEventhandler(selectCategoryEventHandler);
 
             homeView.setMainColorOnValue();

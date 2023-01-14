@@ -32,12 +32,14 @@ public class User {
         this.userName = userName;
         this.transactionManager = new TransactionManager();
         this.categoryManager = new CategoryManager();
+        this.budgetManager = new BudgetManager();
     }
 
     public User(String userName) {
         this.userName = userName;
         this.transactionManager = new TransactionManager();
         this.categoryManager = new CategoryManager();
+        this.budgetManager = new BudgetManager();
     }
 
     public String getUserName() {
