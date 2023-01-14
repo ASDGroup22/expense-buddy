@@ -12,7 +12,7 @@ import java.time.ZoneId;
 
 import org.expense.tracker.controllers.Controller;
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.ui.components.BudgetForm;
@@ -108,7 +108,7 @@ public class MainController implements Initializable{
 
     private BudgetListView budgetListView;
     private BudgetViewHeader budgetViewHeader;
-    private ObservableList<CategoryBudget> budgetObservableList;
+    private ObservableList<Budget> budgetObservableList;
 
     private ProfileForm profileForm;
     private TransactionForm transactionForm;
@@ -188,7 +188,7 @@ public class MainController implements Initializable{
 
         userObservableList = FXCollections.observableArrayList();
 
-        for (User user : controller.getProfiles()) {
+        for (User user : controller.getUsers()) {
             userObservableList.add(user);
         }
 
@@ -213,7 +213,7 @@ public class MainController implements Initializable{
 
         budgetObservableList = FXCollections.observableArrayList();
 
-        for (CategoryBudget budget : controller.getCategoryBudgets(selectedProfileId)) {
+        for (Budget budget : controller.getCategoryBudgets(selectedProfileId)) {
             budgetObservableList.add(budget);
         }
 
@@ -241,7 +241,7 @@ public class MainController implements Initializable{
         resetObservableLists();
 
         headBarView = new HeadBarView();
-        headBarView.getProfile().getSelectionModel().select(controller.getProfile(selectedProfileId));
+        headBarView.getProfile().getSelectionModel().select(controller.getUser(selectedProfileId));
 
         headBarView.setAddProfileClickHandler(addProfileClickHandler);
         headBarView.setProfileClickHandler(profileClickHandler);
@@ -258,7 +258,7 @@ public class MainController implements Initializable{
         homeView = new HomeView();
 
         try {
-            double budgetSummary = controller.getProfile(selectedProfileId).getBudgetManager().getTotalBudget();
+            double budgetSummary = controller.getUser(selectedProfileId).getBudgetManager().getTotalBudget();
             double incomeSummary = controller.getIncomeSummary(selectedProfileId);
             double expenseSummary = controller.getExpenseSummary(selectedProfileId);
             double balanceSummary = budgetSummary + incomeSummary - expenseSummary;
@@ -456,7 +456,7 @@ public class MainController implements Initializable{
 
                 if (profileForm.getFormMode().equalsIgnoreCase("INSERT")){
 
-                    controller.createProfile(profileName);
+                    controller.createUser(profileName);
 
                     resetView();
 
@@ -464,7 +464,7 @@ public class MainController implements Initializable{
 
                     User user = new User(profileId, profileName);
                     
-                    controller.updateProfile(user);
+                    controller.updateUser(user);
 
                     setProfileListView();
                 }
@@ -489,7 +489,7 @@ public class MainController implements Initializable{
 
                 } else if (profileForm.getFormMode().equalsIgnoreCase("UPDATE")){
 
-                    controller.deleteProfile(profileId);;
+                    controller.deleteUser(profileId);;
 
                     setProfileListView();
                 }
@@ -624,7 +624,7 @@ public class MainController implements Initializable{
 
                 // transactionForm.setAmount(event.getPickResult().getClass().);
                 int transactionId = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getTransactionId();
-                String amount = Float.toString(transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getAmount());
+                String amount = Double.toString(transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getAmount());
                 Category category = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getCategory();
                 String note = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().getNote();
                 Boolean recurring = transactionListView.getTransactionListView().getSelectionModel().getSelectedItem().isRecurring();

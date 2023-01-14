@@ -1,13 +1,13 @@
 package org.expense.tracker.models;
 
-public class CategoryBudget {
+public class Budget {
 
     int categoryId;
 
     Category category;
     double budgetVal;
 
-    public CategoryBudget(int categoryId, Category category, double budgetVal) {
+    public Budget(int categoryId, Category category, double budgetVal) {
         this.categoryId = categoryId;
         this.category = category;
         this.budgetVal = budgetVal;

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Transaction {
     private int transactionId;
-    private float amount;
+    private double amount;
     private boolean isRecurring;
     private String note;
     private Category category;
@@ -68,7 +68,7 @@ public class Transaction {
         this.category = category;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 

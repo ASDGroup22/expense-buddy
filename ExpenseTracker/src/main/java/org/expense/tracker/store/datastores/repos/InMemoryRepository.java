@@ -4,7 +4,7 @@ import org.expense.tracker.managers.CategoryManager;
 import org.expense.tracker.managers.UserManager;
 import org.expense.tracker.managers.TransactionManager;
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.store.datastores.DataRepository;
@@ -17,47 +17,47 @@ public class InMemoryRepository implements DataRepository {
     UserManager userManager = new UserManager();
 
     @Override
-    public int addProfile(String profileName) {
-        return userManager.createProfile(profileName);
+    public int addUser(String userName) {
+        return userManager.createProfile(userName);
     }
 
     @Override
-    public List<User> getProfiles() {
+    public List<User> addUsers() {
         return userManager.getProfileList();
     }
 
     @Override
-    public User getProfile(int profileId) {
-        return userManager.getProfile(profileId);
+    public User getUser(int userId) {
+        return userManager.getProfile(userId);
     }
 
     @Override
-    public int addTransaction(int profileId, float amount, boolean recurring, String note, Category category,
+    public int addTransaction(int userId, float amount, boolean recurring, String note, Category category,
                               Date transactionDate, boolean isExpense) {
-        TransactionManager transactionManager = userManager.getProfile(profileId).getTransactionManager();
+        TransactionManager transactionManager = userManager.getProfile(userId).getTransactionManager();
         return transactionManager.createTransaction(amount, recurring, note, category, transactionDate, isExpense);
     }
 
     @Override
-    public int addCategory(int profileId, String categoryName, boolean isExpenseCategory) {
-        CategoryManager transactionManager = userManager.getProfile(profileId).getCategoryManager();
+    public int addCategory(int userId, String categoryName, boolean isExpenseCategory) {
+        CategoryManager transactionManager = userManager.getProfile(userId).getCategoryManager();
         return transactionManager.createCategory(categoryName, isExpenseCategory);
     }
 
     @Override
-    public List<Transaction> getTransactions(int profileId) {
-        return userManager.getProfile(profileId).getTransactionManager().getTransactionList();
+    public List<Transaction> getTransactions(int userId) {
+        return userManager.getProfile(userId).getTransactionManager().getTransactionList();
     }
 
     @Override
-    public List<CategoryBudget> getCategoryBudgets(int profileId) {
-        return userManager.getProfile(profileId).getBudgetManager().getBudgetList();
+    public List<Budget> getCategoryBudgets(int userId) {
+        return userManager.getProfile(userId).getBudgetManager().getBudgetList();
     }
 
     @Override
-    public List<Transaction> getExpenses(int profileId) {
+    public List<Transaction> getExpenses(int userId) {
         List<Transaction> transactionList =
-                userManager.getProfile(profileId).getTransactionManager().getTransactionList();
+                userManager.getProfile(userId).getTransactionManager().getTransactionList();
         List<Transaction> expenses = new ArrayList<>();
         for (Transaction transaction: transactionList) {
             if (transaction.getCategory().isExpenseCategory()) {
@@ -68,9 +68,9 @@ public class InMemoryRepository implements DataRepository {
     }
 
     @Override
-    public List<Transaction> getIncomes(int profileId) {
+    public List<Transaction> getIncomes(int userId) {
         List<Transaction> transactionList =
-                userManager.getProfile(profileId).getTransactionManager().getTransactionList();
+                userManager.getProfile(userId).getTransactionManager().getTransactionList();
         List<Transaction> incomes = new ArrayList<>();
         for (Transaction transaction: transactionList) {
             if (!transaction.getCategory().isExpenseCategory()) {
@@ -81,52 +81,52 @@ public class InMemoryRepository implements DataRepository {
     }
 
     @Override
-    public List<Category> getCategories(int profileId) {
-        return userManager.getProfile(profileId).getCategoryManager().getCategoryList();
+    public List<Category> getCategories(int userId) {
+        return userManager.getProfile(userId).getCategoryManager().getCategoryList();
     }
 
     @Override
-    public List<Category> getExpenseCategories(int profileId) {
-        return userManager.getProfile(profileId).getCategoryManager().getExpenseCategories();
+    public List<Category> getExpenseCategories(int userId) {
+        return userManager.getProfile(userId).getCategoryManager().getExpenseCategories();
     }
 
     @Override
-    public List<Category> getIncomeCategories(int profileId) {
-        return userManager.getProfile(profileId).getCategoryManager().getIncomeCategories();
+    public List<Category> getIncomeCategories(int userId) {
+        return userManager.getProfile(userId).getCategoryManager().getIncomeCategories();
     }
 
     @Override
-    public void updateProfile(User user) {
+    public void updateUser(User user) {
         userManager.updateProfile(user);
     }
 
     @Override
-    public void deleteProfile(int profileId) {
-        userManager.deleteProfile(profileId);
+    public void deleteUser(int userId) {
+        userManager.deleteProfile(userId);
     }
 
     @Override
-    public void updateTransaction(int profileId, Transaction transaction) {
-        userManager.getProfile(profileId).getTransactionManager().updateTransaction(transaction);
+    public void updateTransaction(int userId, Transaction transaction) {
+        userManager.getProfile(userId).getTransactionManager().updateTransaction(transaction);
     }
 
     @Override
-    public void updateBudget(int profileId, int categoryId, double budget) {
-        userManager.getProfile(profileId).getBudgetManager().updateBudget(categoryId, budget);
+    public void updateBudget(int userId, int categoryId, double budget) {
+        userManager.getProfile(userId).getBudgetManager().updateBudget(categoryId, budget);
     }
 
     @Override
-    public void deleteTransaction(int profileId, Transaction transaction) {
-        userManager.getProfile(profileId).getTransactionManager().deleteTransaction(transaction.getTransactionId());
+    public void deleteTransaction(int userId, Transaction transaction) {
+        userManager.getProfile(userId).getTransactionManager().deleteTransaction(transaction.getTransactionId());
     }
 
     @Override
-    public void updateCategory(int profileId, Category category) {
-        userManager.getProfile(profileId).getCategoryManager().updateCategory(category);
+    public void updateCategory(int userId, Category category) {
+        userManager.getProfile(userId).getCategoryManager().updateCategory(category);
     }
 
     @Override
-    public void deleteCategory(int profileId, Category category) {
-        userManager.getProfile(profileId).getCategoryManager().deleteCategory(category);
+    public void deleteCategory(int userId, Category category) {
+        userManager.getProfile(userId).getCategoryManager().deleteCategory(category);
     }
 }

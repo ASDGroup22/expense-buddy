@@ -1,7 +1,7 @@
 package org.expense.tracker.store.datastores.repos;
 
 import org.expense.tracker.models.Category;
-import org.expense.tracker.models.CategoryBudget;
+import org.expense.tracker.models.Budget;
 import org.expense.tracker.models.User;
 import org.expense.tracker.models.Transaction;
 import org.expense.tracker.store.datastores.DataRepository;
@@ -37,11 +37,11 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public int addProfile(String profileName) {
-        int id = getProfiles().size();
+    public int addUser(String userName) {
+        int id = addUsers().size();
         try {
             String sqlStringInsertProfile =
-                    "INSERT INTO PROFILES VALUES(" + id + ",'" + profileName + "');";
+                    "INSERT INTO PROFILES VALUES(" + id + ",'" + userName + "');";
             connection.createStatement().executeQuery(sqlStringInsertProfile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +50,7 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public List<User> getProfiles() {
+    public List<User> addUsers() {
         List<User> objects = new ArrayList<>();
         try {
             String sqlStringSelectProfile = "SELECT * FROM PROFILES";
@@ -69,7 +69,7 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public User getProfile(int id) {
+    public User getUser(int userId) {
 
         try {
             String sqlStringSelectProfile = "SELECT * FROM PROFILES";
@@ -88,12 +88,12 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public void updateProfile(User user) {
+    public void updateUser(User user) {
         try {
-            String profileName = user.getUserName();
+            String userName = user.getUserName();
 
             String sqlStringUpdateProfile =
-                    "UPDATE PROFILES SET profile_name = '" + profileName + "' WHERE profile_id = " + user.getUserId();
+                    "UPDATE PROFILES SET profile_name = '" + userName + "' WHERE profile_id = " + user.getUserId();
 
             connection.createStatement().executeQuery(sqlStringUpdateProfile);
         } catch (Exception e) {
@@ -102,9 +102,9 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public void deleteProfile(int profileId) {
+    public void deleteUser(int userId) {
         try {
-            String sqlStringDeleteProfile = "DELETE FROM PROFILES WHERE profile_id = " + profileId;
+            String sqlStringDeleteProfile = "DELETE FROM PROFILES WHERE profile_id = " + userId;
             connection.createStatement().executeQuery(sqlStringDeleteProfile);
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,13 +112,13 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public int addTransaction(int profileId, float amount, boolean recurring, String note, Category category,
+    public int addTransaction(int userId, float amount, boolean recurring, String note, Category category,
                               Date transactionDate, boolean isExpense) {
-        int id = getTransactions(profileId).size();
+        int id = getTransactions(userId).size();
         try {
             PreparedStatement statement =
                     connection.prepareStatement("INSERT INTO TRANSACTIONS VALUES(?, ?, ?, ?, ?, ?, ?, ?);");
-            statement.setInt(1, profileId);
+            statement.setInt(1, userId);
             statement.setInt(2, id);
             statement.setInt(3, category.getId());
             statement.setFloat(4, amount);
@@ -179,21 +179,21 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public List<Transaction> getExpenses(int profileId) {
-        return getTransactionList(profileId, true);
+    public List<Transaction> getExpenses(int userId) {
+        return getTransactionList(userId, true);
     }
 
 
     @Override
-    public List<Transaction> getIncomes(int profileId) {
-        return getTransactionList(profileId, false);
+    public List<Transaction> getIncomes(int userId) {
+        return getTransactionList(userId, false);
     }
 
     @Override
-    public int addCategory(int profileId, String categoryName, boolean isExpenseCategory) {
+    public int addCategory(int userId, String categoryName, boolean isExpenseCategory) {
         int id = 0;
         try {
-            String sqlStringSelectProfile = "SELECT COUNT(*) FROM CATEGORIES WHERE profile_id = " + profileId;
+            String sqlStringSelectProfile = "SELECT COUNT(*) FROM CATEGORIES WHERE profile_id = " + userId;
             ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectProfile);
 
             while (resultSet.next()) {
@@ -204,7 +204,7 @@ public class FileBasedRepository implements DataRepository {
         }
         try {
             String sqlStringInsertCategory =
-                    "INSERT INTO CATEGORIES VALUES(" + profileId + "," + id + "," + isExpenseCategory + ",'" + categoryName + "', 0.0E0);";
+                    "INSERT INTO CATEGORIES VALUES(" + userId + "," + id + "," + isExpenseCategory + ",'" + categoryName + "', 0.0E0);";
             connection.createStatement().executeQuery(sqlStringInsertCategory);
         } catch (Exception e) {
             e.printStackTrace();
@@ -212,10 +212,10 @@ public class FileBasedRepository implements DataRepository {
         return id;
     }
 
-    public List<Category> getCategories(int profileId) {
+    public List<Category> getCategories(int userId) {
         List<Category> expenses = new ArrayList<>();
         try {
-            String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + profileId;
+            String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + userId;
             ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectProfile);
 
             while (resultSet.next()) {
@@ -246,22 +246,22 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public List<Category> getExpenseCategories(int profileId) {
-        return getCategories(profileId, true);
+    public List<Category> getExpenseCategories(int userId) {
+        return getCategories(userId, true);
     }
 
     @Override
-    public List<Transaction> getTransactions(int profileId) {
+    public List<Transaction> getTransactions(int userId) {
         List<Transaction> objects = new ArrayList<>();
         try {
-            String sqlStringSelectTransaction = "SELECT * FROM TRANSACTIONS WHERE profile_id = " + profileId;
+            String sqlStringSelectTransaction = "SELECT * FROM TRANSACTIONS WHERE profile_id = " + userId;
             ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectTransaction);
 
             while (resultSet.next()) {
                 Transaction transaction = new Transaction();
                 transaction.setTransactionId(resultSet.getInt("transaction_id"));
                 transaction.setAmount(resultSet.getFloat("amount"));
-                transaction.setCategory(getCategory(profileId, resultSet.getInt("category_id")));
+                transaction.setCategory(getCategory(userId, resultSet.getInt("category_id")));
                 transaction.setRecurring(resultSet.getBoolean("recurring"));
                 transaction.setNote(resultSet.getString("transaction_note"));
                 transaction.setTransactionDate(resultSet.getDate("transaction_date"));
@@ -278,14 +278,14 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public List<CategoryBudget> getCategoryBudgets(int profileId) {
-        List<CategoryBudget> budgetList = new ArrayList<>();
+    public List<Budget> getCategoryBudgets(int userId) {
+        List<Budget> budgetList = new ArrayList<>();
         try {
-            String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + profileId + " AND is_expense_category = true";
+            String sqlStringSelectProfile = "SELECT * FROM CATEGORIES WHERE profile_id = " + userId + " AND is_expense_category = true";
             ResultSet resultSet = connection.createStatement().executeQuery(sqlStringSelectProfile);
 
             while (resultSet.next()) {
-                budgetList.add(new CategoryBudget(resultSet.getInt("category_id"),
+                budgetList.add(new Budget(resultSet.getInt("category_id"),
                         new Category(resultSet.getInt("category_id"), resultSet.getString("category_name")
                         , resultSet.getBoolean("is_expense_category")), resultSet.getDouble("budget")));
             }
@@ -296,12 +296,12 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public void updateBudget(int profileId, int categoryId, double budget) {
+    public void updateBudget(int userId, int categoryId, double budget) {
         try {
 
             String sqlStringUpdateCategory =
                     "UPDATE CATEGORIES SET budget = " + budget
-                            + " WHERE profile_id = " + profileId + " AND category_id = " +
+                            + " WHERE profile_id = " + userId + " AND category_id = " +
                             categoryId;
             connection.createStatement().executeQuery(sqlStringUpdateCategory);
         } catch (Exception e) {
@@ -310,15 +310,15 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public List<Category> getIncomeCategories(int profileId) {
-        return getCategories(profileId, false);
+    public List<Category> getIncomeCategories(int userId) {
+        return getCategories(userId, false);
     }
 
     @Override
-    public void updateTransaction(int profileId, Transaction transaction) {
+    public void updateTransaction(int userId, Transaction transaction) {
         try {
             int transactionId = transaction.getTransactionId();
-            float transactionAmount = transaction.getAmount();
+            double transactionAmount = transaction.getAmount();
             int categoryId = transaction.getCategory().getId();
             Boolean recurring = transaction.isRecurring();
             String transactionNote = transaction.getNote();
@@ -329,12 +329,12 @@ public class FileBasedRepository implements DataRepository {
                     connection.prepareStatement("UPDATE TRANSACTIONS SET category_id = ? , amount = ? , recurring = " +
                             "? , transaction_note = ? , transaction_date = ?, is_expense = ? WHERE profile_id = ? AND transaction_id = ?");
             statement.setInt(1, categoryId);
-            statement.setFloat(2, transactionAmount);
+            statement.setDouble(2, transactionAmount);
             statement.setBoolean(3, recurring);
             statement.setString(4, transactionNote);
             statement.setDate(5, transactionDate);
             statement.setBoolean(6, isExpense);
-            statement.setInt(7, profileId);
+            statement.setInt(7, userId);
             statement.setInt(8, transactionId);
             statement.executeUpdate();
         } catch (Exception e) {
@@ -343,7 +343,7 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public void deleteTransaction(int profileId, Transaction transaction) {
+    public void deleteTransaction(int userId, Transaction transaction) {
         try {
             int transactionId = transaction.getTransactionId();
             String sqlStringDeleteTransaction = "DELETE FROM TRANSACTIONS WHERE transaction_id = " + transactionId;
@@ -354,14 +354,14 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public void updateCategory(int profileId, Category category) {
+    public void updateCategory(int userId, Category category) {
         try {
             int categoryId = category.getId();
             String categoryName = category.getName();
 
             String sqlStringUpdateCategory =
                     "UPDATE CATEGORIES SET is_expense_category = '" + category.isExpenseCategory() + "', category_name = '" + categoryName
-                            + "' WHERE profile_id = " + profileId + " AND category_id = " +
+                            + "' WHERE profile_id = " + userId + " AND category_id = " +
                             categoryId;
 
             connection.createStatement().executeQuery(sqlStringUpdateCategory);
@@ -371,7 +371,7 @@ public class FileBasedRepository implements DataRepository {
     }
 
     @Override
-    public void deleteCategory(int profileId, Category category) {
+    public void deleteCategory(int userId, Category category) {
         try {
             int categoryId = category.getId();
 

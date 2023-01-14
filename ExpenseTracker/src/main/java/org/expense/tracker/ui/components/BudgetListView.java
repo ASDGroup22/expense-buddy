@@ -5,39 +5,38 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import org.expense.tracker.models.CategoryBudget;
-import org.expense.tracker.models.Transaction;
+import org.expense.tracker.models.Budget;
 
 public class BudgetListView {
 
-    private ListView<CategoryBudget> categoryBudgetListView;
-    private ObservableList<CategoryBudget> categoryBudgetObservableList;
+    private ListView<Budget> categoryBudgetListView;
+    private ObservableList<Budget> budgetObservableList;
     private EventHandler<MouseEvent> budgetItemClickHandler;
 
     public BudgetListView() {
         this.categoryBudgetListView = new ListView<>();
-        this.categoryBudgetObservableList = FXCollections.observableArrayList();
+        this.budgetObservableList = FXCollections.observableArrayList();
         this.categoryBudgetListView.setOnMouseClicked(this.budgetItemClickHandler);
     }
 
-    public ListView<CategoryBudget> getCategoryBudgetListView() {
-        categoryBudgetListView.setItems(categoryBudgetObservableList);
+    public ListView<Budget> getCategoryBudgetListView() {
+        categoryBudgetListView.setItems(budgetObservableList);
         categoryBudgetListView.setCellFactory(transactionListView -> new BudgetListViewCell());
         categoryBudgetListView.setPrefHeight(500);
         categoryBudgetListView.setOnMouseClicked(budgetItemClickHandler);
         return categoryBudgetListView;
     }
 
-    public void setCategoryBudgetListView(ListView<CategoryBudget> categoryBudgetListView) {
+    public void setCategoryBudgetListView(ListView<Budget> categoryBudgetListView) {
         this.categoryBudgetListView = categoryBudgetListView;
     }
 
-    public ObservableList<CategoryBudget> getCategoryBudgetObservableList() {
-        return categoryBudgetObservableList;
+    public ObservableList<Budget> getCategoryBudgetObservableList() {
+        return budgetObservableList;
     }
 
-    public void setCategoryBudgetObservableList(ObservableList<CategoryBudget> categoryBudgetObservableList) {
-        this.categoryBudgetObservableList = categoryBudgetObservableList;
+    public void setCategoryBudgetObservableList(ObservableList<Budget> budgetObservableList) {
+        this.budgetObservableList = budgetObservableList;
     }
 
     public EventHandler<MouseEvent> getBudgetItemClickHandler() {
