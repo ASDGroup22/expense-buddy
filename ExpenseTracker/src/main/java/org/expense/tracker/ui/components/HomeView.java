@@ -61,45 +61,45 @@ public class HomeView {
         this.gridPane.setHgap(8);
         this.gridPane.setVgap(8);
 
-        this.summaryHeadLabel = new Label("Summary of incomes and expenses");
+        this.summaryHeadLabel = new Label("Finance Analysis");
         summaryHeadLabel.getStyleClass().add("label-sub-head");
-        this.profileBudgetNameLabel = new Label("Budget");
+        this.profileBudgetNameLabel = new Label("Overall Budget: ");
         this.profileBudgetLabel = new Label();
         profileBudgetLabel.getStyleClass().add("label-blue");
 
-        this.incomeTotalNameLabel = new Label("Income");
+        this.incomeTotalNameLabel = new Label("Overall Income: ");
         this.incomeTotalLabel = new Label();
         incomeTotalLabel.getStyleClass().add("label-blue");
 
-        this.expenseTotalNameLabel = new Label("Expense");
+        this.expenseTotalNameLabel = new Label("Overall Expense: ");
         this.expenseTotalLabel = new Label();
         expenseTotalLabel.getStyleClass().add("label-red");
 
-        this.balanceTotalNameLabel = new Label("Balance");
+        this.balanceTotalNameLabel = new Label("Remaining Budget: ");
         this.balanceTotalLabel = new Label();
 
-        this.categorySummaryHeadLabel = new Label("Summary by Category");
+        this.categorySummaryHeadLabel = new Label("Category Overview");
         categorySummaryHeadLabel.getStyleClass().add("label-sub-head");
 
-        this.selectCategoryNameLabel = new Label("Category");
+        this.selectCategoryNameLabel = new Label("Category: ");
         this.selectCategoryComboBox = new ComboBox<Category>();
 
-        this.budgetNameLabel = new Label("Budget");
+        this.budgetNameLabel = new Label("Budget: ");
         this.budgetLabel = new Label();
         budgetLabel.getStyleClass().add("label-blue");
 
-        this.expenseNameLabel = new Label("Spendings");
+        this.expenseNameLabel = new Label("Spendings: ");
         this.expenseLabel = new Label();
         expenseLabel.getStyleClass().add("label-red");
 
-        this.balanceNameLabel = new Label("Balance");
+        this.balanceNameLabel = new Label("Balance: ");
         this.balanceLabel = new Label();
 
-        this.earningNameLabel = new Label("Earnings");
+        this.earningNameLabel = new Label("Earnings: ");
         this.earningLabel = new Label();
         earningLabel.getStyleClass().add("label-green");
 
-        this.categoryOptionNameLabel = new Label("Type");
+        this.categoryOptionNameLabel = new Label("Type: ");
         this.toggleGroup = new ToggleGroup();
 
         this.incomeOption =  new RadioButton("Income");
