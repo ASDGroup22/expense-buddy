@@ -32,6 +32,7 @@ public class TestController {
         int profId = testProfiles(controller);
         testCategories(controller, profId);
         testTransactions(controller, profId);
+        testBudget(controller, profId);
     }
 
     private int testProfiles(Controller controller) {
@@ -103,12 +104,22 @@ public class TestController {
         Assert.assertEquals(controller.getIncomeTransactions(profileId).get(0).getNote(), "give treat");
         Assert.assertEquals(controller.getExpenseTransactions(profileId).get(0).getNote(), "buy breakfast");
 
-        Assert.assertEquals(controller.getExpenseSummary(profileId), 100f);
-        Assert.assertEquals(controller.getIncomeSummary(profileId), 1100f);
+        Assert.assertEquals(controller.getExpenseSummary(profileId), 100.0);
+        Assert.assertEquals(controller.getIncomeSummary(profileId), 1100.0);
 
         Assert.assertEquals(controller.getCategorySummary(profileId,
-                controller.getIncomeCategories(profileId).get(0).getId()), 1100f);
+                controller.getIncomeCategories(profileId).get(0).getId()), 1100.0);
         Assert.assertEquals(controller.getCategorySummary(profileId,
-                controller.getExpenseCategories(profileId).get(0).getId()), 100f);
+                controller.getExpenseCategories(profileId).get(0).getId()), 100.0);
+    }
+
+    private void testBudget(Controller controller, int userId) {
+        Assert.assertEquals(controller.getExpenseCategories(userId).size(), 4);
+        int categoryId = controller.getExpenseCategories(userId).get(3).getId();
+        controller.updateBudget(userId, controller.getExpenseCategories(userId).get(0).getId(), 10000.00);
+        controller.updateBudget(userId, controller.getExpenseCategories(userId).get(1).getId(), 20000.00);
+        controller.updateBudget(userId, controller.getExpenseCategories(userId).get(2).getId(), 30000.00);
+        controller.updateBudget(userId, controller.getExpenseCategories(userId).get(3).getId(), 40000.00);
+        Assert.assertEquals(controller.getTotalBudget(userId), 100000);
     }
 }
