@@ -258,7 +258,7 @@ public class MainController implements Initializable {
         homeView = new HomeView();
 
         try {
-            double budgetSummary = controller.getUser(selectedProfileId).getBudgetManager().getTotalBudget();
+            double budgetSummary = controller.getTotalBudget(selectedProfileId);
             double incomeSummary = controller.getIncomeSummary(selectedProfileId);
             double expenseSummary = controller.getExpenseSummary(selectedProfileId);
             double balanceSummary = budgetSummary - expenseSummary;
